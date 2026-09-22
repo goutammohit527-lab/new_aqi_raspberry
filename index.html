@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Air Quality Monitor</title>
+    <title>Air Quality Monitoring Device</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -21,13 +21,13 @@
 
 
     <!-- =====================================================
-         TOP HEADER
+         HEADER
     ====================================================== -->
 
     <header class="top-header">
 
 
-        <!-- ESP32 CONNECTION -->
+        <!-- CONNECTION STATUS -->
 
         <div class="connection">
 
@@ -94,16 +94,13 @@
 
         <section class="aqi-card card">
 
-
             <div class="aqi-title">
-                AIR QUALITY INDEX
+                AIR QUALITY MONITOR
             </div>
-
 
             <div class="aqi-number" id="aqiValue">
                 119
             </div>
-
 
         </section>
 
@@ -116,258 +113,176 @@
         <section class="sensor-grid">
 
 
-            <!-- CO2 -->
+            <!-- =================================================
+                 CARBON DIOXIDE
+            ================================================== -->
 
             <div class="sensor-card co2">
 
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        CO₂
-                    </div>
-
-                    <div class="sensor-icon">
-                        CO₂
-                    </div>
-
+                <div class="sensor-name">
+                    Carbon Dioxide
                 </div>
 
+                <div class="sensor-value"
+                     id="co2">
+                    453
+                </div>
 
                 <div class="sensor-unit">
                     ppm
                 </div>
 
-
-                <div class="sensor-value"
-                     id="co2">
-
-                    453
-
-                </div>
-
             </div>
 
 
 
-            <!-- SO2 -->
+            <!-- =================================================
+                 SULFUR DIOXIDE
+            ================================================== -->
 
             <div class="sensor-card so2">
 
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        SO₂
-                    </div>
-
-                    <div class="sensor-icon">
-                        SO₂
-                    </div>
-
+                <div class="sensor-name">
+                    Sulfur Dioxide
                 </div>
-
-
-                <div class="sensor-unit">
-                    µg/m³
-                </div>
-
 
                 <div class="sensor-value"
                      id="so2">
-
                     0.02
-
                 </div>
-
-            </div>
-
-
-
-            <!-- NO2 -->
-
-            <div class="sensor-card no2">
-
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        NO₂
-                    </div>
-
-                    <div class="sensor-icon">
-                        NO₂
-                    </div>
-
-                </div>
-
 
                 <div class="sensor-unit">
                     µg/m³
                 </div>
 
+            </div>
+
+
+
+            <!-- =================================================
+                 NITROGEN DIOXIDE
+            ================================================== -->
+
+            <div class="sensor-card no2">
+
+                <div class="sensor-name">
+                    Nitrogen Dioxide
+                </div>
 
                 <div class="sensor-value"
                      id="no2">
-
                     0.69
+                </div>
 
+                <div class="sensor-unit">
+                    µg/m³
                 </div>
 
             </div>
 
 
 
-            <!-- CO -->
+            <!-- =================================================
+                 CARBON MONOXIDE
+            ================================================== -->
 
             <div class="sensor-card co">
 
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        CO
-                    </div>
-
-                    <div class="sensor-icon">
-                        CO
-                    </div>
-
+                <div class="sensor-name">
+                    Carbon Monoxide
                 </div>
 
+                <div class="sensor-value"
+                     id="co">
+                    0.50
+                </div>
 
                 <div class="sensor-unit">
                     mg/m³
                 </div>
 
-
-                <div class="sensor-value"
-                     id="co">
-
-                    0.50
-
-                </div>
-
             </div>
 
 
 
-            <!-- PM1.5 -->
+            <!-- =================================================
+                 PARTICULATE MATTER 1.5
+            ================================================== -->
 
             <div class="sensor-card pm15">
 
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        PM<sub>1.5</sub>
-                    </div>
-
-                    <div class="sensor-icon">
-                        PM
-                    </div>
-
+                <div class="sensor-name">
+                    Particulate Matter 1.5
                 </div>
-
-
-                <div class="sensor-unit">
-                    µg/m³
-                </div>
-
 
                 <div class="sensor-value"
                      id="pm15">
-
                     35
+                </div>
 
+                <div class="sensor-unit">
+                    µg/m³
                 </div>
 
             </div>
 
 
 
-            <!-- PM2.5 -->
+            <!-- =================================================
+                 PARTICULATE MATTER 2.5
+            ================================================== -->
 
             <div class="sensor-card pm25">
 
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        PM<sub>2.5</sub>
-                    </div>
-
-                    <div class="sensor-icon">
-                        PM
-                    </div>
-
+                <div class="sensor-name">
+                    Particulate Matter 2.5
                 </div>
-
-
-                <div class="sensor-unit">
-                    µg/m³
-                </div>
-
 
                 <div class="sensor-value"
                      id="pm25">
-
                     43
-
                 </div>
-
-            </div>
-
-
-
-            <!-- PM10 -->
-
-            <div class="sensor-card pm10">
-
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        PM<sub>10</sub>
-                    </div>
-
-                    <div class="sensor-icon">
-                        PM
-                    </div>
-
-                </div>
-
 
                 <div class="sensor-unit">
                     µg/m³
                 </div>
 
+            </div>
+
+
+
+            <!-- =================================================
+                 PARTICULATE MATTER 10
+            ================================================== -->
+
+            <div class="sensor-card pm10">
+
+                <div class="sensor-name">
+                    Particulate Matter 10
+                </div>
 
                 <div class="sensor-value"
                      id="pm10">
-
                     48
+                </div>
 
+                <div class="sensor-unit">
+                    µg/m³
                 </div>
 
             </div>
 
 
 
-            <!-- TEMPERATURE -->
+            <!-- =================================================
+                 TEMPERATURE
+            ================================================== -->
 
             <div class="sensor-card temperature">
 
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        Temperature
-                    </div>
-
-                    <div class="sensor-icon">
-                        °C
-                    </div>
-
-                </div>
-
-
-                <div class="sensor-unit">
+                <div class="sensor-name">
                     Temperature
                 </div>
-
 
                 <div class="sensor-value">
 
@@ -375,37 +290,29 @@
                         31.6
                     </span>
 
-                    <span class="value-small">
+                    <span class="value-suffix">
                         °C
                     </span>
 
+                </div>
+
+                <div class="sensor-unit">
+                    Temperature
                 </div>
 
             </div>
 
 
 
-            <!-- HUMIDITY -->
+            <!-- =================================================
+                 HUMIDITY
+            ================================================== -->
 
             <div class="sensor-card humidity">
 
-                <div class="sensor-top">
-
-                    <div class="sensor-name">
-                        Humidity
-                    </div>
-
-                    <div class="sensor-icon">
-                        %
-                    </div>
-
+                <div class="sensor-name">
+                    Humidity
                 </div>
-
-
-                <div class="sensor-unit">
-                    Relative Humidity
-                </div>
-
 
                 <div class="sensor-value">
 
@@ -413,10 +320,14 @@
                         74.8
                     </span>
 
-                    <span class="value-small">
+                    <span class="value-suffix">
                         %
                     </span>
 
+                </div>
+
+                <div class="sensor-unit">
+                    Relative Humidity
                 </div>
 
             </div>
@@ -459,7 +370,7 @@
 
 
 
-        <!-- CENTER MESSAGE -->
+        <!-- CENTER -->
 
         <div class="footer-message">
 
