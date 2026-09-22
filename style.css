@@ -439,124 +439,6 @@ body {
 
 
 /* ============================================================
-   AQI RANGE
-============================================================ */
-
-.aqi-range {
-
-    width: 100%;
-
-    margin-top:
-        clamp(10px, 1.5vh, 20px);
-
-}
-
-
-.range-title {
-
-    text-align: left;
-
-    color: #91b6d6;
-
-    font-size:
-        clamp(8px, 0.65vw, 13px);
-
-    font-weight: 700;
-
-    letter-spacing: 1px;
-
-    margin-bottom: 5px;
-
-}
-
-
-.range-bar {
-
-    width: 100%;
-
-    height:
-        clamp(18px, 2vh, 28px);
-
-    display: flex;
-
-    overflow: hidden;
-
-    border-radius: 5px;
-
-    border:
-        1px solid rgba(255,255,255,0.12);
-
-}
-
-
-.range-segment {
-
-    flex: 1;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    font-size:
-        clamp(7px, 0.55vw, 11px);
-
-    font-weight: 800;
-
-    color: #ffffff;
-
-}
-
-
-.range-good {
-
-    background: #1d9b64;
-
-}
-
-
-.range-moderate {
-
-    background: #b89b17;
-
-}
-
-
-.range-elevated {
-
-    background: #d56e19;
-
-}
-
-
-.range-high {
-
-    background: #a93434;
-
-}
-
-
-.range-labels {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-top: 4px;
-
-    color: #7899b6;
-
-    font-size:
-        clamp(6px, 0.5vw, 10px);
-
-    font-weight: 700;
-
-}
-
-
-
-/* ============================================================
    AQI HISTORY
 ============================================================ */
 
@@ -730,7 +612,7 @@ body {
 
 
 /* ============================================================
-   SVG
+   SVG GRAPH
 ============================================================ */
 
 .chart-area svg {
@@ -809,7 +691,7 @@ body {
 
 
 /* ============================================================
-   CURRENT GRAPH LABEL
+   CURRENT GRAPH VALUE
 ============================================================ */
 
 .current-graph-label {
