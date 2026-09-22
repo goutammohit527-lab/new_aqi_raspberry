@@ -188,6 +188,82 @@ function updateDashboard() {
    AQI GRAPH
 ============================================================ */
 
+function aqiSeverityColor(value) {
+
+    if (value <= 50) {
+        return "#26f57a";
+    }
+
+    if (value <= 100) {
+        return "#ffd21e";
+    }
+
+    if (value <= 150) {
+        return "#ff9f1e";
+    }
+
+    if (value <= 200) {
+        return "#ff5f4d";
+    }
+
+    return "#ff2f6b";
+
+}
+
+
+
+function buildSmoothPath(points) {
+
+    if (points.length === 0) {
+        return "";
+    }
+
+    if (points.length === 1) {
+        return `M ${points[0].x} ${points[0].y}`;
+    }
+
+    let d =
+        `M ${points[0].x} ${points[0].y}`;
+
+    for (
+        let i = 0;
+        i < points.length - 1;
+        i++
+    ) {
+
+        const p0 =
+            points[i - 1] || points[i];
+
+        const p1 = points[i];
+
+        const p2 = points[i + 1];
+
+        const p3 =
+            points[i + 2] || p2;
+
+        const cp1x =
+            p1.x + (p2.x - p0.x) / 6;
+
+        const cp1y =
+            p1.y + (p2.y - p0.y) / 6;
+
+        const cp2x =
+            p2.x - (p3.x - p1.x) / 6;
+
+        const cp2y =
+            p2.y - (p3.y - p1.y) / 6;
+
+        d +=
+            ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
+
+    }
+
+    return d;
+
+}
+
+
+
 function updateAQIGraph() {
 
 
@@ -206,6 +282,18 @@ function updateAQIGraph() {
     const graphPoint =
         document.getElementById(
             "aqiGraphPoint"
+        );
+
+
+    const graphPointPulse =
+        document.getElementById(
+            "aqiGraphPointPulse"
+        );
+
+
+    const graphDots =
+        document.getElementById(
+            "aqiGraphDots"
         );
 
 
@@ -320,7 +408,6 @@ function updateAQIGraph() {
                 usableHeight;
 
 
-
             points.push({
 
                 x: x,
@@ -337,27 +424,22 @@ function updateAQIGraph() {
 
 
     /* --------------------------------------------------------
-       DRAW LINE
+       DRAW SMOOTH LINE
     -------------------------------------------------------- */
 
-    const pointString =
-        points
-            .map(
-                point =>
-                    `${point.x},${point.y}`
-            )
-            .join(" ");
+    const linePath =
+        buildSmoothPath(points);
 
 
     graphLine.setAttribute(
-        "points",
-        pointString
+        "d",
+        linePath
     );
 
 
 
     /* --------------------------------------------------------
-       DRAW AREA
+       DRAW SMOOTH AREA
     -------------------------------------------------------- */
 
     if (points.length > 0) {
@@ -374,19 +456,7 @@ function updateAQIGraph() {
 
 
         let areaPath =
-            `M ${first.x} ${first.y}`;
-
-
-        for (
-            let i = 1;
-            i < points.length;
-            i++
-        ) {
-
-            areaPath +=
-                ` L ${points[i].x} ${points[i].y}`;
-
-        }
+            linePath;
 
 
         areaPath +=
@@ -409,7 +479,100 @@ function updateAQIGraph() {
 
 
         /* ----------------------------------------------------
-           CURRENT POINT
+           SEVERITY COLOR OF LATEST READING
+        ---------------------------------------------------- */
+
+        const liveColor =
+            aqiSeverityColor(
+                last.value
+            );
+
+
+
+        /* ----------------------------------------------------
+           HISTORY DOTS
+        ---------------------------------------------------- */
+
+        if (graphDots) {
+
+            graphDots.innerHTML = "";
+
+            points.forEach(
+                (point, index) => {
+
+
+                    const isLast =
+                        index ===
+                        points.length - 1;
+
+                    if (isLast) {
+                        return;
+                    }
+
+
+                    const dot =
+                        document.createElementNS(
+                            "http://www.w3.org/2000/svg",
+                            "circle"
+                        );
+
+
+                    dot.setAttribute(
+                        "class",
+                        "graph-point"
+                    );
+
+                    dot.setAttribute(
+                        "cx",
+                        point.x
+                    );
+
+                    dot.setAttribute(
+                        "cy",
+                        point.y
+                    );
+
+                    dot.setAttribute(
+                        "r",
+                        4.5
+                    );
+
+                    dot.setAttribute(
+                        "stroke",
+                        aqiSeverityColor(
+                            point.value
+                        )
+                    );
+
+                    dot.setAttribute(
+                        "opacity",
+                        0.55 +
+                        (
+                            0.35 *
+                            (
+                                index /
+                                Math.max(
+                                    1,
+                                    points.length - 1
+                                )
+                            )
+                        )
+                    );
+
+
+                    graphDots.appendChild(
+                        dot
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* ----------------------------------------------------
+           CURRENT POINT + PULSE
         ---------------------------------------------------- */
 
         graphPoint.setAttribute(
@@ -424,6 +587,36 @@ function updateAQIGraph() {
         );
 
 
+        graphPoint.setAttribute(
+            "stroke",
+            liveColor
+        );
+
+
+        graphPoint.style.filter =
+            `drop-shadow(0 0 10px ${liveColor})`;
+
+
+        if (graphPointPulse) {
+
+            graphPointPulse.setAttribute(
+                "cx",
+                last.x
+            );
+
+            graphPointPulse.setAttribute(
+                "cy",
+                last.y
+            );
+
+            graphPointPulse.setAttribute(
+                "stroke",
+                liveColor
+            );
+
+        }
+
+
 
         /* ----------------------------------------------------
            CURRENT GRAPH LABEL
@@ -434,12 +627,20 @@ function updateAQIGraph() {
             graphLabel.textContent =
                 `AQI ${Math.round(last.value)}`;
 
+            graphLabel.style.color =
+                liveColor;
+
+            graphLabel.style.borderColor =
+                liveColor;
+
+            graphLabel.style.boxShadow =
+                `0 0 14px ${liveColor}66`;
+
         }
 
     }
 
 }
-
 
 
 /* ============================================================
