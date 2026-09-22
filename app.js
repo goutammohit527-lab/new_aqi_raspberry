@@ -103,17 +103,23 @@ function updateClock() {
 function updateDashboard() {
 
 
+    /* AQI */
+
     document.getElementById("aqiValue")
         .textContent =
         sensorData.aqi;
 
 
 
+    /* CARBON DIOXIDE */
+
     document.getElementById("co2")
         .textContent =
         sensorData.co2;
 
 
+
+    /* SULFUR DIOXIDE */
 
     document.getElementById("so2")
         .textContent =
@@ -122,12 +128,16 @@ function updateDashboard() {
 
 
 
+    /* NITROGEN DIOXIDE */
+
     document.getElementById("no2")
         .textContent =
         Number(sensorData.no2)
             .toFixed(2);
 
 
+
+    /* CARBON MONOXIDE */
 
     document.getElementById("co")
         .textContent =
@@ -136,11 +146,15 @@ function updateDashboard() {
 
 
 
+    /* PM1.5 */
+
     document.getElementById("pm15")
         .textContent =
         sensorData.pm15;
 
 
+
+    /* PM2.5 */
 
     document.getElementById("pm25")
         .textContent =
@@ -148,11 +162,15 @@ function updateDashboard() {
 
 
 
+    /* PM10 */
+
     document.getElementById("pm10")
         .textContent =
         sensorData.pm10;
 
 
+
+    /* TEMPERATURE */
 
     document.getElementById("temperature")
         .textContent =
@@ -160,6 +178,8 @@ function updateDashboard() {
             .toFixed(1);
 
 
+
+    /* HUMIDITY */
 
     document.getElementById("humidity")
         .textContent =
