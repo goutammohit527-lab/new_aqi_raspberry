@@ -1,13 +1,25 @@
 /* ============================================================
-   AQI MONITOR FRONTEND
+   AIR QUALITY MONITOR
+   FRONTEND JAVASCRIPT
 ============================================================ */
 
 
 /* ============================================================
-   CURRENT SENSOR DATA
-   --------------------------------
-   Temporary dummy data.
-   Later this will come from Raspberry Pi backend.
+   SENSOR DATA
+
+   These are temporary values.
+
+   Later they will come from:
+
+   ESP32
+      ↓
+   UART
+      ↓
+   Raspberry Pi
+      ↓
+   Python
+      ↓
+   JavaScript
 ============================================================ */
 
 let sensorData = {
@@ -31,11 +43,13 @@ let sensorData = {
     temperature: 31.6,
 
     humidity: 74.8
+
 };
 
 
+
 /* ============================================================
-   UPDATE CLOCK
+   CLOCK
 ============================================================ */
 
 function updateClock() {
@@ -43,7 +57,7 @@ function updateClock() {
     const now = new Date();
 
 
-    /* Date */
+    /* DATE */
 
     const dateOptions = {
 
@@ -54,7 +68,9 @@ function updateClock() {
         month: "short",
 
         year: "numeric"
+
     };
+
 
     const dateString =
         now.toLocaleDateString(
@@ -63,16 +79,21 @@ function updateClock() {
         );
 
 
-    /* Time */
+    /* TIME */
 
     const timeString =
         now.toLocaleTimeString(
             "en-IN",
             {
+
                 hour: "2-digit",
+
                 minute: "2-digit",
+
                 second: "2-digit",
+
                 hour12: false
+
             }
         );
 
@@ -88,149 +109,124 @@ function updateClock() {
     document.getElementById("lastUpdated")
         .textContent =
         `${dateString} ${timeString}`;
+
 }
 
 
+
 /* ============================================================
-   UPDATE SENSOR DISPLAY
+   UPDATE DASHBOARD
 ============================================================ */
 
 function updateDashboard() {
 
-    document.getElementById("aqiValue")
-        .textContent = sensorData.aqi;
 
+    /* AQI */
+
+    document.getElementById("aqiValue")
+        .textContent =
+        sensorData.aqi;
+
+
+
+    /* CO2 */
 
     document.getElementById("co2")
-        .textContent = sensorData.co2;
+        .textContent =
+        sensorData.co2;
 
+
+
+    /* SO2 */
 
     document.getElementById("so2")
         .textContent =
-        Number(sensorData.so2).toFixed(2);
+        Number(sensorData.so2)
+            .toFixed(2);
 
+
+
+    /* NO2 */
 
     document.getElementById("no2")
         .textContent =
-        Number(sensorData.no2).toFixed(2);
+        Number(sensorData.no2)
+            .toFixed(2);
 
+
+
+    /* CO */
 
     document.getElementById("co")
         .textContent =
-        Number(sensorData.co).toFixed(2);
+        Number(sensorData.co)
+            .toFixed(2);
 
+
+
+    /* PM1.5 */
 
     document.getElementById("pm15")
-        .textContent = sensorData.pm15;
+        .textContent =
+        sensorData.pm15;
 
+
+
+    /* PM2.5 */
 
     document.getElementById("pm25")
-        .textContent = sensorData.pm25;
+        .textContent =
+        sensorData.pm25;
 
+
+
+    /* PM10 */
 
     document.getElementById("pm10")
-        .textContent = sensorData.pm10;
+        .textContent =
+        sensorData.pm10;
 
+
+
+    /* TEMPERATURE */
 
     document.getElementById("temperature")
         .textContent =
-        Number(sensorData.temperature).toFixed(1);
+        Number(sensorData.temperature)
+            .toFixed(1);
 
+
+
+    /* HUMIDITY */
 
     document.getElementById("humidity")
         .textContent =
-        Number(sensorData.humidity).toFixed(1);
+        Number(sensorData.humidity)
+            .toFixed(1);
 
-
-    updateAQIStatus(sensorData.aqi);
 }
 
 
-/* ============================================================
-   AQI STATUS
-============================================================ */
-
-function updateAQIStatus(aqi) {
-
-    const statusElement =
-        document.getElementById("aqiStatus");
-
-
-    let status = "";
-    let statusColor = "";
-
-
-    if (aqi <= 50) {
-
-        status = "Good";
-
-        statusColor = "#27ef78";
-
-    }
-
-    else if (aqi <= 100) {
-
-        status = "Moderate";
-
-        statusColor = "#ffd42a";
-
-    }
-
-    else if (aqi <= 150) {
-
-        status = "Unhealthy for Sensitive Groups";
-
-        statusColor = "#ffad21";
-
-    }
-
-    else if (aqi <= 200) {
-
-        status = "Unhealthy";
-
-        statusColor = "#ff5b45";
-
-    }
-
-    else if (aqi <= 300) {
-
-        status = "Very Unhealthy";
-
-        statusColor = "#c85cff";
-
-    }
-
-    else {
-
-        status = "Hazardous";
-
-        statusColor = "#b00020";
-    }
-
-
-    statusElement.textContent = status;
-
-    statusElement.style.color =
-        statusColor;
-}
-
 
 /* ============================================================
-   SIMULATE LIVE SENSOR DATA
-   --------------------------------
-   ONLY FOR TESTING THE FRONTEND.
+   TEMPORARY SENSOR SIMULATION
+
+   This is ONLY for testing the frontend.
+
+   It randomly changes sensor values every 3 seconds.
+
+   Once ESP32 + Raspberry Pi backend is connected,
+   this function will be removed.
 ============================================================ */
 
 function simulateSensorData() {
 
-    /*
-       Small random changes so we can see
-       the dashboard updating.
-    */
 
     sensorData.co2 =
         453 +
-        Math.round((Math.random() - 0.5) * 10);
+        Math.round(
+            (Math.random() - 0.5) * 10
+        );
 
 
     sensorData.so2 =
@@ -250,17 +246,23 @@ function simulateSensorData() {
 
     sensorData.pm15 =
         35 +
-        Math.round((Math.random() - 0.5) * 4);
+        Math.round(
+            (Math.random() - 0.5) * 4
+        );
 
 
     sensorData.pm25 =
         43 +
-        Math.round((Math.random() - 0.5) * 4);
+        Math.round(
+            (Math.random() - 0.5) * 4
+        );
 
 
     sensorData.pm10 =
         48 +
-        Math.round((Math.random() - 0.5) * 4);
+        Math.round(
+            (Math.random() - 0.5) * 4
+        );
 
 
     sensorData.temperature =
@@ -274,7 +276,9 @@ function simulateSensorData() {
 
 
     updateDashboard();
+
 }
+
 
 
 /* ============================================================
@@ -286,34 +290,41 @@ function initializeDashboard() {
     updateClock();
 
     updateDashboard();
+
 }
 
 
+
 /* ============================================================
-   CLOCK UPDATE
+   CLOCK UPDATE EVERY SECOND
 ============================================================ */
 
 setInterval(
+
     updateClock,
+
     1000
+
 );
 
 
+
 /* ============================================================
-   TEMPORARY SENSOR UPDATE
-   --------------------------------
-   Remove this later when backend
-   connection is implemented.
+   TEMPORARY SENSOR UPDATE EVERY 3 SECONDS
 ============================================================ */
 
 setInterval(
+
     simulateSensorData,
+
     3000
+
 );
 
 
+
 /* ============================================================
-   START
+   START DASHBOARD
 ============================================================ */
 
 initializeDashboard();
