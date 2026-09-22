@@ -192,8 +192,6 @@ function updateDashboard() {
 
 /* ============================================================
    TEMPORARY SENSOR SIMULATION
-
-   ONLY FOR FRONTEND TESTING
 ============================================================ */
 
 function simulateSensorData() {
