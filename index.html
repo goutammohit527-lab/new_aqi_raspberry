@@ -26,8 +26,6 @@
 
     <header class="top-header">
 
-        <!-- CONNECTION -->
-
         <div class="connection">
 
             <span class="connection-dot"></span>
@@ -47,12 +45,10 @@
         </div>
 
 
-        <!-- MAIN TITLE -->
-
         <div class="header-title">
 
             <h1>
-                AIR QUALITY MONITOR
+                AIR QUALITY MONITORING DEVICE
             </h1>
 
             <p>
@@ -61,8 +57,6 @@
 
         </div>
 
-
-        <!-- CLOCK -->
 
         <div class="clock-section">
 
@@ -93,12 +87,110 @@
 
         <section class="aqi-card card">
 
+
+            <!-- AQI TITLE -->
+
             <div class="aqi-title">
-                AIR QUALITY INDEX
+                AIR QUALITY MONITOR
             </div>
+
+
+            <!-- AQI VALUE -->
 
             <div class="aqi-number" id="aqiValue">
                 119
+            </div>
+
+
+            <!-- AQI GRAPH -->
+
+            <div class="aqi-graph-container">
+
+                <div class="aqi-graph-title">
+                    AQI HISTORY
+                </div>
+
+                <div class="aqi-chart">
+
+                    <svg
+                        id="aqiGraph"
+                        viewBox="0 0 500 180"
+                        preserveAspectRatio="none"
+                        aria-label="AQI history graph">
+
+                        <!-- GRID -->
+
+                        <line
+                            x1="0"
+                            y1="30"
+                            x2="500"
+                            y2="30"
+                            class="graph-grid-line">
+                        </line>
+
+                        <line
+                            x1="0"
+                            y1="90"
+                            x2="500"
+                            y2="90"
+                            class="graph-grid-line">
+                        </line>
+
+                        <line
+                            x1="0"
+                            y1="150"
+                            x2="500"
+                            y2="150"
+                            class="graph-grid-line">
+                        </line>
+
+
+                        <!-- AREA -->
+
+                        <path
+                            id="aqiGraphArea"
+                            class="graph-area"
+                            d="">
+                        </path>
+
+
+                        <!-- LINE -->
+
+                        <polyline
+                            id="aqiGraphLine"
+                            class="graph-line"
+                            points="">
+                        </polyline>
+
+
+                        <!-- CURRENT POINT -->
+
+                        <circle
+                            id="aqiGraphPoint"
+                            class="graph-point"
+                            cx="500"
+                            cy="90"
+                            r="5">
+                        </circle>
+
+                    </svg>
+
+                </div>
+
+                <div class="graph-scale">
+
+                    <span>0</span>
+
+                    <span>50</span>
+
+                    <span>100</span>
+
+                    <span>150</span>
+
+                    <span>200</span>
+
+                </div>
+
             </div>
 
         </section>
@@ -319,9 +411,6 @@
 
     <footer class="bottom-footer">
 
-
-        <!-- LOCATION -->
-
         <div class="location">
 
             <span class="footer-icon">
@@ -343,9 +432,6 @@
         </div>
 
 
-
-        <!-- CENTER MESSAGE -->
-
         <div class="footer-message">
 
             MONITOR
@@ -356,9 +442,6 @@
 
         </div>
 
-
-
-        <!-- LAST UPDATED -->
 
         <div class="last-updated">
 
@@ -371,7 +454,6 @@
             </div>
 
         </div>
-
 
     </footer>
 
