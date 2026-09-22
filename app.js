@@ -37,7 +37,7 @@ let sensorData = {
 
 /* ============================================================
    AQI HISTORY
-   7 POINTS = CURRENT + PREVIOUS 6 HOURS
+   LAST 6 HOURS
 ============================================================ */
 
 let aqiHistory = [
@@ -259,14 +259,13 @@ function updateAQIGraph() {
 
 
     /* --------------------------------------------------------
-       CREATE POINTS
+       CREATE GRAPH POINTS
     -------------------------------------------------------- */
 
     const points = [];
 
     const totalPoints =
         aqiHistory.length;
-
 
 
     aqiHistory.forEach(
@@ -338,7 +337,7 @@ function updateAQIGraph() {
 
 
     /* --------------------------------------------------------
-       LINE POINTS
+       DRAW LINE
     -------------------------------------------------------- */
 
     const pointString =
@@ -358,7 +357,7 @@ function updateAQIGraph() {
 
 
     /* --------------------------------------------------------
-       AREA
+       DRAW AREA
     -------------------------------------------------------- */
 
     if (points.length > 0) {
@@ -427,7 +426,7 @@ function updateAQIGraph() {
 
 
         /* ----------------------------------------------------
-           CURRENT AQI LABEL
+           CURRENT GRAPH LABEL
         ---------------------------------------------------- */
 
         if (graphLabel) {
@@ -445,7 +444,7 @@ function updateAQIGraph() {
 
 /* ============================================================
    TEMPORARY SENSOR SIMULATION
-   REMOVE THIS WHEN REAL ESP32 DATA IS CONNECTED
+   REMOVE WHEN REAL ESP32 DATA IS CONNECTED
 ============================================================ */
 
 function simulateSensorData() {
@@ -583,7 +582,7 @@ function simulateSensorData() {
 
 
 
-    /* ADD TO HISTORY */
+    /* ADD NEW AQI READING */
 
     aqiHistory.push(
         sensorData.aqi
@@ -591,7 +590,7 @@ function simulateSensorData() {
 
 
 
-    /* KEEP LAST 7 VALUES */
+    /* KEEP ONLY LAST 7 READINGS */
 
     if (
         aqiHistory.length > 7
@@ -624,7 +623,7 @@ function initializeDashboard() {
 
 
 /* ============================================================
-   CLOCK UPDATE
+   CLOCK
 ============================================================ */
 
 setInterval(
