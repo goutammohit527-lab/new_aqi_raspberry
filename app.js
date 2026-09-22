@@ -1,15 +1,15 @@
 /* ============================================================
-   AIR QUALITY MONITOR
+   AIR QUALITY MONITORING DEVICE
    FRONTEND JAVASCRIPT
 ============================================================ */
 
 
 /* ============================================================
-   SENSOR DATA
+   TEMPORARY SENSOR DATA
 
-   These are temporary values.
+   Currently dummy values are used.
 
-   Later they will come from:
+   Later:
 
    ESP32
       ↓
@@ -17,7 +17,7 @@
       ↓
    Raspberry Pi
       ↓
-   Python
+   Python Backend
       ↓
    JavaScript
 ============================================================ */
@@ -57,8 +57,6 @@ function updateClock() {
     const now = new Date();
 
 
-    /* DATE */
-
     const dateOptions = {
 
         weekday: "short",
@@ -78,8 +76,6 @@ function updateClock() {
             dateOptions
         );
 
-
-    /* TIME */
 
     const timeString =
         now.toLocaleTimeString(
@@ -129,7 +125,7 @@ function updateDashboard() {
 
 
 
-    /* CO2 */
+    /* CARBON DIOXIDE */
 
     document.getElementById("co2")
         .textContent =
@@ -137,7 +133,7 @@ function updateDashboard() {
 
 
 
-    /* SO2 */
+    /* SULFUR DIOXIDE */
 
     document.getElementById("so2")
         .textContent =
@@ -146,7 +142,7 @@ function updateDashboard() {
 
 
 
-    /* NO2 */
+    /* NITROGEN DIOXIDE */
 
     document.getElementById("no2")
         .textContent =
@@ -155,7 +151,7 @@ function updateDashboard() {
 
 
 
-    /* CO */
+    /* CARBON MONOXIDE */
 
     document.getElementById("co")
         .textContent =
@@ -211,12 +207,10 @@ function updateDashboard() {
 /* ============================================================
    TEMPORARY SENSOR SIMULATION
 
-   This is ONLY for testing the frontend.
+   This is ONLY for frontend testing.
 
-   It randomly changes sensor values every 3 seconds.
-
-   Once ESP32 + Raspberry Pi backend is connected,
-   this function will be removed.
+   It will be removed when the
+   Raspberry Pi backend is connected.
 ============================================================ */
 
 function simulateSensorData() {
@@ -296,7 +290,7 @@ function initializeDashboard() {
 
 
 /* ============================================================
-   CLOCK UPDATE EVERY SECOND
+   CLOCK - EVERY SECOND
 ============================================================ */
 
 setInterval(
@@ -310,7 +304,7 @@ setInterval(
 
 
 /* ============================================================
-   TEMPORARY SENSOR UPDATE EVERY 3 SECONDS
+   SENSOR SIMULATION - EVERY 3 SECONDS
 ============================================================ */
 
 setInterval(
@@ -324,7 +318,7 @@ setInterval(
 
 
 /* ============================================================
-   START DASHBOARD
+   START
 ============================================================ */
 
 initializeDashboard();
