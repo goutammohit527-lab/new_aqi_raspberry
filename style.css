@@ -396,10 +396,10 @@ body {
     position: relative;
 
     margin-top:
-        clamp(25px, 4vh, 50px);
+        clamp(20px, 3vh, 40px);
 
     font-size:
-        clamp(80px, 10vw, 200px);
+        clamp(70px, 8vw, 170px);
 
     line-height: 0.95;
 
@@ -448,14 +448,8 @@ body {
     position: relative;
 
     padding:
-        clamp(12px, 1.5vw, 30px);
+        clamp(10px, 1.2vw, 24px);
 
-
-    /*
-       IMPORTANT:
-
-       Everything inside the sensor card is centered.
-    */
 
     display: flex;
 
@@ -469,11 +463,13 @@ body {
 
 
     /*
-       Prevent content from being pushed
-       toward left/right.
+       Keep all content centered
+       and inside the card.
     */
 
     width: 100%;
+
+    min-width: 0;
 
 }
 
@@ -490,13 +486,21 @@ body {
     text-align: center;
 
     font-size:
-        clamp(15px, 1.35vw, 30px);
+        clamp(14px, 1.15vw, 26px);
 
     font-weight: 700;
 
     color: #f1f7ff;
 
     line-height: 1.2;
+
+    /*
+       Allows long names such as
+       "Particulate Matter 2.5"
+       to fit properly.
+    */
+
+    overflow-wrap: break-word;
 
 }
 
@@ -513,15 +517,15 @@ body {
     text-align: center;
 
     margin-top:
-        clamp(14px, 1.8vh, 28px);
+        clamp(10px, 1.2vh, 18px);
 
 
     /*
-       BIGGER VALUE
+       REDUCED SIZE
     */
 
     font-size:
-        clamp(42px, 4.8vw, 90px);
+        clamp(30px, 3.2vw, 62px);
 
 
     line-height: 1;
@@ -530,8 +534,10 @@ body {
 
     color: #ffffff;
 
+    white-space: nowrap;
+
     text-shadow:
-        0 0 14px rgba(120, 190, 255, 0.18);
+        0 0 12px rgba(120, 190, 255, 0.15);
 
 }
 
@@ -548,15 +554,15 @@ body {
     text-align: center;
 
     margin-top:
-        clamp(12px, 1.5vh, 24px);
+        clamp(8px, 1vh, 15px);
 
 
     /*
-       BIGGER UNIT
+       REDUCED BUT STILL CLEAR
     */
 
     font-size:
-        clamp(19px, 1.7vw, 34px);
+        clamp(14px, 1.2vw, 24px);
 
 
     font-weight: 700;
@@ -564,6 +570,8 @@ body {
     color: #a9d1ef;
 
     line-height: 1;
+
+    white-space: nowrap;
 
 }
 
@@ -576,7 +584,7 @@ body {
 .value-suffix {
 
     font-size:
-        clamp(22px, 2vw, 40px);
+        clamp(17px, 1.5vw, 30px);
 
     color: #b7d4ed;
 
@@ -797,7 +805,7 @@ body {
     .sensor-name {
 
         font-size:
-            clamp(13px, 1.8vw, 24px);
+            clamp(12px, 1.6vw, 21px);
 
     }
 
@@ -805,7 +813,7 @@ body {
     .sensor-value {
 
         font-size:
-            clamp(30px, 3.8vw, 55px);
+            clamp(25px, 3vw, 45px);
 
     }
 
@@ -813,7 +821,7 @@ body {
     .sensor-unit {
 
         font-size:
-            clamp(14px, 1.4vw, 24px);
+            clamp(12px, 1.1vw, 19px);
 
     }
 
@@ -956,21 +964,21 @@ body {
 
     .sensor-name {
 
-        font-size: 34px;
+        font-size: 28px;
 
     }
 
 
     .sensor-value {
 
-        font-size: 82px;
+        font-size: 58px;
 
     }
 
 
     .sensor-unit {
 
-        font-size: 32px;
+        font-size: 24px;
 
     }
 
