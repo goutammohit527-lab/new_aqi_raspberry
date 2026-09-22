@@ -1,7 +1,8 @@
 /* ============================================================
    AIR QUALITY MONITORING DEVICE
-   FRONTEND JAVASCRIPT
+   RAILWAY PLATFORM DISPLAY
 ============================================================ */
+
 
 
 /* ============================================================
@@ -36,38 +37,16 @@ let sensorData = {
 
 /* ============================================================
    AQI HISTORY
+   7 POINTS = CURRENT + PREVIOUS 6 HOURS
 ============================================================ */
-
-/*
-   Temporary AQI history for frontend testing.
-
-   Later this will come from:
-
-   ESP32
-      ↓
-   UART
-      ↓
-   Raspberry Pi
-      ↓
-   Python
-      ↓
-   JavaScript
-*/
 
 let aqiHistory = [
 
     82,
-    86,
     91,
-    88,
-    95,
-    101,
-    98,
-    104,
-    108,
-    105,
-    112,
-    115,
+    86,
+    103,
+    97,
     111,
     119
 
@@ -144,23 +123,15 @@ function updateClock() {
 function updateDashboard() {
 
 
-    /* AQI */
-
     document.getElementById("aqiValue")
         .textContent =
-        sensorData.aqi;
+        Math.round(sensorData.aqi);
 
-
-
-    /* CARBON DIOXIDE */
 
     document.getElementById("co2")
         .textContent =
-        sensorData.co2;
+        Math.round(sensorData.co2);
 
-
-
-    /* SULFUR DIOXIDE */
 
     document.getElementById("so2")
         .textContent =
@@ -168,17 +139,11 @@ function updateDashboard() {
             .toFixed(2);
 
 
-
-    /* NITROGEN DIOXIDE */
-
     document.getElementById("no2")
         .textContent =
         Number(sensorData.no2)
             .toFixed(2);
 
-
-
-    /* CARBON MONOXIDE */
 
     document.getElementById("co")
         .textContent =
@@ -186,32 +151,20 @@ function updateDashboard() {
             .toFixed(2);
 
 
-
-    /* PM1.5 */
-
     document.getElementById("pm15")
         .textContent =
-        sensorData.pm15;
+        Math.round(sensorData.pm15);
 
-
-
-    /* PM2.5 */
 
     document.getElementById("pm25")
         .textContent =
-        sensorData.pm25;
+        Math.round(sensorData.pm25);
 
-
-
-    /* PM10 */
 
     document.getElementById("pm10")
         .textContent =
-        sensorData.pm10;
+        Math.round(sensorData.pm10);
 
-
-
-    /* TEMPERATURE */
 
     document.getElementById("temperature")
         .textContent =
@@ -219,17 +172,11 @@ function updateDashboard() {
             .toFixed(1);
 
 
-
-    /* HUMIDITY */
-
     document.getElementById("humidity")
         .textContent =
         Number(sensorData.humidity)
             .toFixed(1);
 
-
-
-    /* UPDATE AQI GRAPH */
 
     updateAQIGraph();
 
@@ -243,35 +190,54 @@ function updateDashboard() {
 
 function updateAQIGraph() {
 
+
     const graphLine =
-        document.getElementById("aqiGraphLine");
+        document.getElementById(
+            "aqiGraphLine"
+        );
+
 
     const graphArea =
-        document.getElementById("aqiGraphArea");
+        document.getElementById(
+            "aqiGraphArea"
+        );
+
 
     const graphPoint =
-        document.getElementById("aqiGraphPoint");
+        document.getElementById(
+            "aqiGraphPoint"
+        );
 
 
-    if (!graphLine || !graphArea || !graphPoint) {
+    const graphLabel =
+        document.getElementById(
+            "currentGraphLabel"
+        );
+
+
+    if (
+        !graphLine ||
+        !graphArea ||
+        !graphPoint
+    ) {
 
         return;
 
     }
 
 
-    /*
-       SVG graph dimensions.
-    */
 
-    const graphWidth = 500;
+    /* --------------------------------------------------------
+       GRAPH DIMENSIONS
+    -------------------------------------------------------- */
 
-    const graphHeight = 180;
+    const graphWidth = 600;
 
+    const graphHeight = 220;
 
-    const topPadding = 12;
+    const topPadding = 5;
 
-    const bottomPadding = 12;
+    const bottomPadding = 5;
 
 
     const usableHeight =
@@ -280,179 +246,198 @@ function updateAQIGraph() {
         bottomPadding;
 
 
-    /*
-       Fixed AQI display range.
 
-       0 → 200
-    */
+    /* --------------------------------------------------------
+       AQI SCALE
+       0 TO 200
+    -------------------------------------------------------- */
 
     const minAQI = 0;
 
     const maxAQI = 200;
 
 
-    /*
-       Create graph points.
-    */
+
+    /* --------------------------------------------------------
+       CREATE POINTS
+    -------------------------------------------------------- */
 
     const points = [];
-
 
     const totalPoints =
         aqiHistory.length;
 
 
-    if (totalPoints === 1) {
 
-        const value =
-            Math.max(
-                minAQI,
-                Math.min(
-                    maxAQI,
-                    aqiHistory[0]
-                )
-            );
+    aqiHistory.forEach(
+        (value, index) => {
 
 
-        const x = graphWidth / 2;
+            const safeValue =
+                Math.max(
+                    minAQI,
+                    Math.min(
+                        maxAQI,
+                        Number(value)
+                    )
+                );
 
 
-        const y =
-            graphHeight -
-            bottomPadding -
-            (
-                (
-                    value - minAQI
-                ) /
-                (
-                    maxAQI - minAQI
-                )
-            ) *
-            usableHeight;
+            let x;
 
 
-        points.push(`${x},${y}`);
+            if (totalPoints === 1) {
 
-    }
-    else {
+                x =
+                    graphWidth / 2;
 
-        aqiHistory.forEach(
-            (value, index) => {
+            }
+            else {
 
-                const safeValue =
-                    Math.max(
-                        minAQI,
-                        Math.min(
-                            maxAQI,
-                            Number(value)
-                        )
-                    );
-
-
-                const x =
+                x =
                     (
                         index /
                         (totalPoints - 1)
                     ) *
                     graphWidth;
 
-
-                const y =
-                    graphHeight -
-                    bottomPadding -
-                    (
-                        (
-                            safeValue - minAQI
-                        ) /
-                        (
-                            maxAQI - minAQI
-                        )
-                    ) *
-                    usableHeight;
-
-
-                points.push(`${x},${y}`);
-
             }
-        );
-
-    }
 
 
-    /*
-       Draw line.
-    */
 
-    const pointsString =
-        points.join(" ");
+            const y =
+                graphHeight -
+                bottomPadding -
+                (
+                    (
+                        safeValue -
+                        minAQI
+                    ) /
+                    (
+                        maxAQI -
+                        minAQI
+                    )
+                ) *
+                usableHeight;
+
+
+
+            points.push({
+
+                x: x,
+
+                y: y,
+
+                value: safeValue
+
+            });
+
+        }
+    );
+
+
+
+    /* --------------------------------------------------------
+       LINE POINTS
+    -------------------------------------------------------- */
+
+    const pointString =
+        points
+            .map(
+                point =>
+                    `${point.x},${point.y}`
+            )
+            .join(" ");
 
 
     graphLine.setAttribute(
         "points",
-        pointsString
+        pointString
     );
 
 
-    /*
-       Draw filled area underneath
-       the line.
-    */
 
-    const lastPoint =
-        points[points.length - 1]
-            .split(",");
+    /* --------------------------------------------------------
+       AREA
+    -------------------------------------------------------- */
+
+    if (points.length > 0) {
 
 
-    const firstPoint =
-        points[0]
-            .split(",");
+        const first =
+            points[0];
 
 
-    const areaPath =
-
-        `M ${firstPoint[0]} ${firstPoint[1]} ` +
-
-        points
-            .slice(1)
-            .map(
-                point => {
-
-                    const [x, y] =
-                        point.split(",");
-
-                    return `L ${x} ${y}`;
-
-                }
-            )
-            .join(" ") +
-
-        ` L ${lastPoint[0]} ${graphHeight - bottomPadding}` +
-
-        ` L ${firstPoint[0]} ${graphHeight - bottomPadding}` +
-
-        ` Z`;
+        const last =
+            points[
+                points.length - 1
+            ];
 
 
-    graphArea.setAttribute(
-        "d",
-        areaPath
-    );
+        let areaPath =
+            `M ${first.x} ${first.y}`;
 
 
-    /*
-       Move current point.
-    */
+        for (
+            let i = 1;
+            i < points.length;
+            i++
+        ) {
 
-    graphPoint.setAttribute(
-        "cx",
-        lastPoint[0]
-    );
+            areaPath +=
+                ` L ${points[i].x} ${points[i].y}`;
+
+        }
 
 
-    graphPoint.setAttribute(
-        "cy",
-        lastPoint[1]
-    );
+        areaPath +=
+            ` L ${last.x} ${graphHeight}`;
+
+
+        areaPath +=
+            ` L ${first.x} ${graphHeight}`;
+
+
+        areaPath +=
+            ` Z`;
+
+
+        graphArea.setAttribute(
+            "d",
+            areaPath
+        );
+
+
+
+        /* ----------------------------------------------------
+           CURRENT POINT
+        ---------------------------------------------------- */
+
+        graphPoint.setAttribute(
+            "cx",
+            last.x
+        );
+
+
+        graphPoint.setAttribute(
+            "cy",
+            last.y
+        );
+
+
+
+        /* ----------------------------------------------------
+           CURRENT AQI LABEL
+        ---------------------------------------------------- */
+
+        if (graphLabel) {
+
+            graphLabel.textContent =
+                `AQI ${Math.round(last.value)}`;
+
+        }
+
+    }
 
 }
 
@@ -460,72 +445,121 @@ function updateAQIGraph() {
 
 /* ============================================================
    TEMPORARY SENSOR SIMULATION
+   REMOVE THIS WHEN REAL ESP32 DATA IS CONNECTED
 ============================================================ */
 
 function simulateSensorData() {
 
 
+    /* CO2 */
+
     sensorData.co2 =
         453 +
         Math.round(
-            (Math.random() - 0.5) * 10
+            (Math.random() - 0.5) * 12
         );
 
+
+
+    /* SO2 */
 
     sensorData.so2 =
-        0.02 +
-        (Math.random() - 0.5) * 0.005;
+        Math.max(
+            0,
+            0.02 +
+            (Math.random() - 0.5) *
+            0.006
+        );
 
+
+
+    /* NO2 */
 
     sensorData.no2 =
-        0.69 +
-        (Math.random() - 0.5) * 0.05;
+        Math.max(
+            0,
+            0.69 +
+            (Math.random() - 0.5) *
+            0.06
+        );
 
+
+
+    /* CO */
 
     sensorData.co =
-        0.50 +
-        (Math.random() - 0.5) * 0.04;
+        Math.max(
+            0,
+            0.50 +
+            (Math.random() - 0.5) *
+            0.05
+        );
 
+
+
+    /* PM1.5 */
 
     sensorData.pm15 =
-        35 +
-        Math.round(
-            (Math.random() - 0.5) * 4
+        Math.max(
+            0,
+            35 +
+            Math.round(
+                (Math.random() - 0.5) * 5
+            )
         );
 
+
+
+    /* PM2.5 */
 
     sensorData.pm25 =
-        43 +
-        Math.round(
-            (Math.random() - 0.5) * 4
+        Math.max(
+            0,
+            43 +
+            Math.round(
+                (Math.random() - 0.5) * 5
+            )
         );
 
+
+
+    /* PM10 */
 
     sensorData.pm10 =
-        48 +
-        Math.round(
-            (Math.random() - 0.5) * 4
+        Math.max(
+            0,
+            48 +
+            Math.round(
+                (Math.random() - 0.5) * 5
+            )
         );
 
+
+
+    /* TEMPERATURE */
 
     sensorData.temperature =
         31.6 +
-        (Math.random() - 0.5) * 0.5;
+        (Math.random() - 0.5) *
+        0.5;
 
+
+
+    /* HUMIDITY */
 
     sensorData.humidity =
         74.8 +
-        (Math.random() - 0.5) * 1;
+        (Math.random() - 0.5) *
+        1.2;
 
 
 
-    /*
-       Simulate AQI movement.
-    */
+    /* AQI */
 
     const change =
         Math.round(
-            (Math.random() - 0.5) * 10
+            (Math.random() - 0.5) *
+            12
         );
 
 
@@ -534,16 +568,11 @@ function simulateSensorData() {
         change;
 
 
-    /*
-       Keep the temporary AQI
-       between 20 and 180.
-    */
-
     newAQI =
         Math.max(
-            20,
+            10,
             Math.min(
-                180,
+                190,
                 newAQI
             )
         );
@@ -553,25 +582,25 @@ function simulateSensorData() {
         newAQI;
 
 
-    /*
-       Add current AQI to history.
-    */
+
+    /* ADD TO HISTORY */
 
     aqiHistory.push(
         sensorData.aqi
     );
 
 
-    /*
-       Keep the graph at
-       20 recent readings.
-    */
 
-    if (aqiHistory.length > 20) {
+    /* KEEP LAST 7 VALUES */
+
+    if (
+        aqiHistory.length > 7
+    ) {
 
         aqiHistory.shift();
 
     }
+
 
 
     updateDashboard();
@@ -595,7 +624,7 @@ function initializeDashboard() {
 
 
 /* ============================================================
-   CLOCK
+   CLOCK UPDATE
 ============================================================ */
 
 setInterval(
@@ -609,7 +638,7 @@ setInterval(
 
 
 /* ============================================================
-   SENSOR + AQI UPDATE
+   SENSOR UPDATE
 ============================================================ */
 
 setInterval(
