@@ -1,285 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
-    <!-- Responsive scaling -->
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>Air Quality Monitor</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
 <div class="dashboard">
 
-    <!-- =========================================================
+
+    <!-- =====================================================
          TOP HEADER
-    ========================================================== -->
+    ====================================================== -->
 
     <header class="top-header">
 
-        <!-- Connection -->
+
+        <!-- ESP32 CONNECTION -->
+
         <div class="connection">
+
             <span class="connection-dot"></span>
 
             <div>
-                <div class="connection-title">Connected</div>
-                <div class="connection-subtitle">ESP32 Online</div>
+
+                <div class="connection-title">
+                    Connected
+                </div>
+
+                <div class="connection-subtitle">
+                    ESP32 Online
+                </div>
+
             </div>
+
         </div>
 
 
-        <!-- Main title -->
+        <!-- MAIN TITLE -->
+
         <div class="header-title">
-            <h1>AIR QUALITY MONITOR</h1>
-            <p>CLEANER AIR • HEALTHIER TOMORROW</p>
+
+            <h1>
+                AIR QUALITY MONITOR
+            </h1>
+
+            <p>
+                CLEANER AIR • HEALTHIER TOMORROW
+            </p>
+
         </div>
 
 
-        <!-- Clock -->
+        <!-- CLOCK -->
+
         <div class="clock-section">
-            <div id="date">Monday, 22 September 2026</div>
-            <div id="time">14:32:18</div>
+
+            <div id="date">
+                Monday, 22 September 2026
+            </div>
+
+            <div id="time">
+                14:32:18
+            </div>
+
         </div>
 
     </header>
 
 
-    <!-- =========================================================
+
+    <!-- =====================================================
          MAIN CONTENT
-    ========================================================== -->
+    ====================================================== -->
 
     <main class="main-grid">
 
-        <!-- =====================================================
+
+        <!-- =================================================
              AQI CARD
-        ====================================================== -->
+        ================================================== -->
 
         <section class="aqi-card card">
+
 
             <div class="aqi-title">
                 AIR QUALITY MONITOR
             </div>
 
+
             <div class="aqi-number" id="aqiValue">
                 119
             </div>
 
-            <div class="aqi-status" id="aqiStatus">
-                Unhealthy for Sensitive Groups
-            </div>
-
-            <div class="aqi-description">
-                AQI (Based on PM2.5)
-            </div>
 
         </section>
 
 
-        <!-- =====================================================
+
+        <!-- =================================================
              SENSOR GRID
-        ====================================================== -->
+        ================================================== -->
 
         <section class="sensor-grid">
 
+
             <!-- CO2 -->
+
             <div class="sensor-card co2">
 
                 <div class="sensor-top">
-                    <div class="sensor-name">CO₂</div>
-                    <div class="sensor-icon">CO₂</div>
+
+                    <div class="sensor-name">
+                        CO₂
+                    </div>
+
+                    <div class="sensor-icon">
+                        CO₂
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">ppm</div>
 
-                <div class="sensor-value" id="co2">
+                <div class="sensor-unit">
+                    ppm
+                </div>
+
+
+                <div class="sensor-value"
+                     id="co2">
+
                     453
+
                 </div>
 
             </div>
+
 
 
             <!-- SO2 -->
+
             <div class="sensor-card so2">
 
                 <div class="sensor-top">
-                    <div class="sensor-name">SO₂</div>
-                    <div class="sensor-icon">SO₂</div>
+
+                    <div class="sensor-name">
+                        SO₂
+                    </div>
+
+                    <div class="sensor-icon">
+                        SO₂
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">µg/m³</div>
 
-                <div class="sensor-value" id="so2">
+                <div class="sensor-unit">
+                    µg/m³
+                </div>
+
+
+                <div class="sensor-value"
+                     id="so2">
+
                     0.02
+
                 </div>
 
             </div>
+
 
 
             <!-- NO2 -->
+
             <div class="sensor-card no2">
 
                 <div class="sensor-top">
-                    <div class="sensor-name">NO₂</div>
-                    <div class="sensor-icon">NO₂</div>
+
+                    <div class="sensor-name">
+                        NO₂
+                    </div>
+
+                    <div class="sensor-icon">
+                        NO₂
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">µg/m³</div>
 
-                <div class="sensor-value" id="no2">
+                <div class="sensor-unit">
+                    µg/m³
+                </div>
+
+
+                <div class="sensor-value"
+                     id="no2">
+
                     0.69
+
                 </div>
 
             </div>
+
 
 
             <!-- CO -->
+
             <div class="sensor-card co">
 
                 <div class="sensor-top">
-                    <div class="sensor-name">CO</div>
-                    <div class="sensor-icon">CO</div>
+
+                    <div class="sensor-name">
+                        CO
+                    </div>
+
+                    <div class="sensor-icon">
+                        CO
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">mg/m³</div>
 
-                <div class="sensor-value" id="co">
+                <div class="sensor-unit">
+                    mg/m³
+                </div>
+
+
+                <div class="sensor-value"
+                     id="co">
+
                     0.50
+
                 </div>
 
             </div>
 
 
+
             <!-- PM1.5 -->
+
             <div class="sensor-card pm15">
 
                 <div class="sensor-top">
+
                     <div class="sensor-name">
                         PM<sub>1.5</sub>
                     </div>
 
-                    <div class="sensor-icon">PM</div>
+                    <div class="sensor-icon">
+                        PM
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">µg/m³</div>
 
-                <div class="sensor-value" id="pm15">
+                <div class="sensor-unit">
+                    µg/m³
+                </div>
+
+
+                <div class="sensor-value"
+                     id="pm15">
+
                     35
+
                 </div>
 
             </div>
 
 
+
             <!-- PM2.5 -->
+
             <div class="sensor-card pm25">
 
                 <div class="sensor-top">
+
                     <div class="sensor-name">
                         PM<sub>2.5</sub>
                     </div>
 
-                    <div class="sensor-icon">PM</div>
+                    <div class="sensor-icon">
+                        PM
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">µg/m³</div>
 
-                <div class="sensor-value" id="pm25">
+                <div class="sensor-unit">
+                    µg/m³
+                </div>
+
+
+                <div class="sensor-value"
+                     id="pm25">
+
                     43
+
                 </div>
 
             </div>
 
 
+
             <!-- PM10 -->
+
             <div class="sensor-card pm10">
 
                 <div class="sensor-top">
+
                     <div class="sensor-name">
                         PM<sub>10</sub>
                     </div>
 
-                    <div class="sensor-icon">PM</div>
+                    <div class="sensor-icon">
+                        PM
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">µg/m³</div>
 
-                <div class="sensor-value" id="pm10">
+                <div class="sensor-unit">
+                    µg/m³
+                </div>
+
+
+                <div class="sensor-value"
+                     id="pm10">
+
                     48
+
                 </div>
 
             </div>
 
 
-            <!-- Temperature -->
+
+            <!-- TEMPERATURE -->
+
             <div class="sensor-card temperature">
 
                 <div class="sensor-top">
+
                     <div class="sensor-name">
                         Temperature
                     </div>
 
-                    <div class="sensor-icon">°C</div>
+                    <div class="sensor-icon">
+                        °C
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">Temperature</div>
+
+                <div class="sensor-unit">
+                    Temperature
+                </div>
+
 
                 <div class="sensor-value">
-                    <span id="temperature">31.6</span>
-                    <span class="value-small">°C</span>
+
+                    <span id="temperature">
+                        31.6
+                    </span>
+
+                    <span class="value-small">
+                        °C
+                    </span>
+
                 </div>
 
             </div>
 
 
-            <!-- Humidity -->
+
+            <!-- HUMIDITY -->
+
             <div class="sensor-card humidity">
 
                 <div class="sensor-top">
+
                     <div class="sensor-name">
                         Humidity
                     </div>
 
-                    <div class="sensor-icon">%</div>
+                    <div class="sensor-icon">
+                        %
+                    </div>
+
                 </div>
 
-                <div class="sensor-unit">Relative Humidity</div>
+
+                <div class="sensor-unit">
+                    Relative Humidity
+                </div>
+
 
                 <div class="sensor-value">
-                    <span id="humidity">74.8</span>
-                    <span class="value-small">%</span>
+
+                    <span id="humidity">
+                        74.8
+                    </span>
+
+                    <span class="value-small">
+                        %
+                    </span>
+
                 </div>
 
             </div>
+
 
         </section>
 
     </main>
 
 
-    <!-- =========================================================
+
+    <!-- =====================================================
          FOOTER
-    ========================================================== -->
+    ====================================================== -->
 
     <footer class="bottom-footer">
 
+
+        <!-- LOCATION -->
+
         <div class="location">
-            <span class="footer-icon">●</span>
+
+            <span class="footer-icon">
+                ●
+            </span>
 
             <div>
-                <div class="footer-label">Location</div>
-                <div class="footer-value">Nagpur, India</div>
+
+                <div class="footer-label">
+                    Location
+                </div>
+
+                <div class="footer-value">
+                    Nagpur, India
+                </div>
+
             </div>
+
         </div>
 
+
+
+        <!-- CENTER MESSAGE -->
 
         <div class="footer-message">
-            MONITOR&nbsp;&nbsp; • &nbsp;&nbsp;ANALYSE&nbsp;&nbsp; • &nbsp;&nbsp;BREATHE BETTER
+
+            MONITOR
+            &nbsp; • &nbsp;
+            ANALYSE
+            &nbsp; • &nbsp;
+            BREATHE BETTER
+
         </div>
 
+
+
+        <!-- LAST UPDATED -->
 
         <div class="last-updated">
 
@@ -293,11 +487,15 @@
 
         </div>
 
+
     </footer>
 
+
 </div>
+
 
 <script src="app.js"></script>
 
 </body>
+
 </html>
