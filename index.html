@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
 
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+          content="width=device-width, initial-scale=1.0">
 
     <title>Air Quality Monitoring Device</title>
 
@@ -25,6 +25,9 @@
     ====================================================== -->
 
     <header class="top-header">
+
+
+        <!-- CONNECTION -->
 
         <div class="connection">
 
@@ -45,6 +48,9 @@
         </div>
 
 
+
+        <!-- MAIN TITLE -->
+
         <div class="header-title">
 
             <h1>
@@ -58,6 +64,9 @@
         </div>
 
 
+
+        <!-- CLOCK -->
+
         <div class="clock-section">
 
             <div id="date">
@@ -70,19 +79,20 @@
 
         </div>
 
+
     </header>
 
 
 
     <!-- =====================================================
-         MAIN CONTENT
+         MAIN
     ====================================================== -->
 
     <main class="main-grid">
 
 
         <!-- =================================================
-             AQI CARD
+             AQI PANEL
         ================================================== -->
 
         <section class="aqi-card card">
@@ -95,103 +105,216 @@
             </div>
 
 
-            <!-- AQI VALUE -->
 
-            <div class="aqi-number" id="aqiValue">
+            <!-- CURRENT AQI -->
+
+            <div class="current-aqi-label">
+                CURRENT AQI
+            </div>
+
+
+            <div
+                class="aqi-number"
+                id="aqiValue">
+
                 119
+
             </div>
 
 
-            <!-- AQI GRAPH -->
 
-            <div class="aqi-graph-container">
+            <!-- SIMPLE AQI RANGE -->
 
-                <div class="aqi-graph-title">
-                    AQI HISTORY
+            <div class="aqi-range">
+
+                <div class="range-title">
+                    AQI RANGE
                 </div>
 
-                <div class="aqi-chart">
 
-                    <svg
-                        id="aqiGraph"
-                        viewBox="0 0 500 180"
-                        preserveAspectRatio="none"
-                        aria-label="AQI history graph">
+                <div class="range-bar">
 
-                        <!-- GRID -->
+                    <div class="range-segment range-good">
+                        0–50
+                    </div>
 
-                        <line
-                            x1="0"
-                            y1="30"
-                            x2="500"
-                            y2="30"
-                            class="graph-grid-line">
-                        </line>
+                    <div class="range-segment range-moderate">
+                        51–100
+                    </div>
 
-                        <line
-                            x1="0"
-                            y1="90"
-                            x2="500"
-                            y2="90"
-                            class="graph-grid-line">
-                        </line>
+                    <div class="range-segment range-elevated">
+                        101–150
+                    </div>
 
-                        <line
-                            x1="0"
-                            y1="150"
-                            x2="500"
-                            y2="150"
-                            class="graph-grid-line">
-                        </line>
-
-
-                        <!-- AREA -->
-
-                        <path
-                            id="aqiGraphArea"
-                            class="graph-area"
-                            d="">
-                        </path>
-
-
-                        <!-- LINE -->
-
-                        <polyline
-                            id="aqiGraphLine"
-                            class="graph-line"
-                            points="">
-                        </polyline>
-
-
-                        <!-- CURRENT POINT -->
-
-                        <circle
-                            id="aqiGraphPoint"
-                            class="graph-point"
-                            cx="500"
-                            cy="90"
-                            r="5">
-                        </circle>
-
-                    </svg>
+                    <div class="range-segment range-high">
+                        151–200
+                    </div>
 
                 </div>
 
-                <div class="graph-scale">
 
-                    <span>0</span>
+                <div class="range-labels">
 
-                    <span>50</span>
+                    <span>LOW</span>
 
-                    <span>100</span>
+                    <span>MODERATE</span>
 
-                    <span>150</span>
+                    <span>ELEVATED</span>
 
-                    <span>200</span>
+                    <span>HIGH</span>
 
                 </div>
 
             </div>
+
+
+
+            <!-- =================================================
+                 AQI HISTORY
+            ================================================== -->
+
+            <div class="aqi-history">
+
+
+                <div class="history-header">
+
+                    <div class="history-title">
+                        AIR QUALITY TREND
+                    </div>
+
+                    <div class="history-period">
+                        LAST 6 HOURS
+                    </div>
+
+                </div>
+
+
+
+                <!-- GRAPH -->
+
+                <div class="trend-chart">
+
+
+                    <!-- RANGE LABELS -->
+
+                    <div class="y-axis">
+
+                        <span>200</span>
+
+                        <span>150</span>
+
+                        <span>100</span>
+
+                        <span>50</span>
+
+                        <span>0</span>
+
+                    </div>
+
+
+
+                    <!-- GRAPH AREA -->
+
+                    <div class="chart-area">
+
+
+                        <!-- REFERENCE LINES -->
+
+                        <div class="chart-line line-200"></div>
+
+                        <div class="chart-line line-150"></div>
+
+                        <div class="chart-line line-100"></div>
+
+                        <div class="chart-line line-50"></div>
+
+                        <div class="chart-line line-0"></div>
+
+
+
+                        <!-- SVG -->
+
+                        <svg
+                            id="aqiGraph"
+                            viewBox="0 0 600 220"
+                            preserveAspectRatio="none">
+
+
+                            <!-- FILLED AREA -->
+
+                            <path
+                                id="aqiGraphArea"
+                                class="graph-area-fill"
+                                d="">
+                            </path>
+
+
+
+                            <!-- TREND LINE -->
+
+                            <polyline
+                                id="aqiGraphLine"
+                                class="graph-line"
+                                points="">
+                            </polyline>
+
+
+
+                            <!-- CURRENT POINT -->
+
+                            <circle
+                                id="aqiGraphPoint"
+                                class="graph-current-point"
+                                cx="590"
+                                cy="100"
+                                r="7">
+                            </circle>
+
+                        </svg>
+
+
+
+                        <!-- CURRENT VALUE LABEL -->
+
+                        <div
+                            id="currentGraphLabel"
+                            class="current-graph-label">
+
+                            AQI 119
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TIME SCALE -->
+
+                <div class="time-scale">
+
+                    <span>NOW - 6H</span>
+
+                    <span>NOW - 5H</span>
+
+                    <span>NOW - 4H</span>
+
+                    <span>NOW - 3H</span>
+
+                    <span>NOW - 2H</span>
+
+                    <span>NOW - 1H</span>
+
+                    <span>NOW</span>
+
+                </div>
+
+
+
+            </div>
+
 
         </section>
 
@@ -204,7 +327,7 @@
         <section class="sensor-grid">
 
 
-            <!-- CARBON DIOXIDE -->
+            <!-- CO2 -->
 
             <div class="sensor-card co2">
 
@@ -212,8 +335,12 @@
                     Carbon Dioxide
                 </div>
 
-                <div class="sensor-value" id="co2">
+                <div
+                    class="sensor-value"
+                    id="co2">
+
                     453
+
                 </div>
 
                 <div class="sensor-unit">
@@ -224,7 +351,7 @@
 
 
 
-            <!-- SULFUR DIOXIDE -->
+            <!-- SO2 -->
 
             <div class="sensor-card so2">
 
@@ -232,8 +359,12 @@
                     Sulfur Dioxide
                 </div>
 
-                <div class="sensor-value" id="so2">
+                <div
+                    class="sensor-value"
+                    id="so2">
+
                     0.02
+
                 </div>
 
                 <div class="sensor-unit">
@@ -244,7 +375,7 @@
 
 
 
-            <!-- NITROGEN DIOXIDE -->
+            <!-- NO2 -->
 
             <div class="sensor-card no2">
 
@@ -252,8 +383,12 @@
                     Nitrogen Dioxide
                 </div>
 
-                <div class="sensor-value" id="no2">
+                <div
+                    class="sensor-value"
+                    id="no2">
+
                     0.69
+
                 </div>
 
                 <div class="sensor-unit">
@@ -264,7 +399,7 @@
 
 
 
-            <!-- CARBON MONOXIDE -->
+            <!-- CO -->
 
             <div class="sensor-card co">
 
@@ -272,8 +407,12 @@
                     Carbon Monoxide
                 </div>
 
-                <div class="sensor-value" id="co">
+                <div
+                    class="sensor-value"
+                    id="co">
+
                     0.50
+
                 </div>
 
                 <div class="sensor-unit">
@@ -292,8 +431,12 @@
                     Particulate Matter 1.5
                 </div>
 
-                <div class="sensor-value" id="pm15">
+                <div
+                    class="sensor-value"
+                    id="pm15">
+
                     35
+
                 </div>
 
                 <div class="sensor-unit">
@@ -312,8 +455,12 @@
                     Particulate Matter 2.5
                 </div>
 
-                <div class="sensor-value" id="pm25">
+                <div
+                    class="sensor-value"
+                    id="pm25">
+
                     43
+
                 </div>
 
                 <div class="sensor-unit">
@@ -332,8 +479,12 @@
                     Particulate Matter 10
                 </div>
 
-                <div class="sensor-value" id="pm10">
+                <div
+                    class="sensor-value"
+                    id="pm10">
+
                     48
+
                 </div>
 
                 <div class="sensor-unit">
@@ -365,7 +516,7 @@
                 </div>
 
                 <div class="sensor-unit">
-                    Temperature
+                    Ambient Temperature
                 </div>
 
             </div>
@@ -411,6 +562,7 @@
 
     <footer class="bottom-footer">
 
+
         <div class="location">
 
             <span class="footer-icon">
@@ -424,12 +576,13 @@
                 </div>
 
                 <div class="footer-value">
-                    Nagpur, India
+                    Railway Platform
                 </div>
 
             </div>
 
         </div>
+
 
 
         <div class="footer-message">
@@ -443,6 +596,7 @@
         </div>
 
 
+
         <div class="last-updated">
 
             <div class="footer-label">
@@ -454,6 +608,7 @@
             </div>
 
         </div>
+
 
     </footer>
 
