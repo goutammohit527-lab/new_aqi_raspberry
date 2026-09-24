@@ -1,87 +1,62 @@
-/* ============================================================
-   GLOBAL
-============================================================ */
-
+```css
 * {
-
     box-sizing: border-box;
-
     margin: 0;
-
     padding: 0;
-
 }
 
 
 html,
 body {
-
     width: 100%;
-
     height: 100%;
-
 }
 
 
 body {
 
-    background:
-
-        radial-gradient(
-            circle at 10% 100%,
-            rgba(0, 100, 220, 0.20),
-            transparent 35%
-        ),
-
-        radial-gradient(
-            circle at 90% 10%,
-            rgba(0, 160, 255, 0.10),
-            transparent 30%
-        ),
-
-        #020914;
-
-    color: #ffffff;
-
     font-family:
+        "Segoe UI",
         Arial,
         Helvetica,
         sans-serif;
 
-    overflow: hidden;
+    background:
+        #06111c;
 
-    user-select: none;
+    color:
+        #ffffff;
+
+    overflow:
+        hidden;
 
 }
 
 
-
 /* ============================================================
-   DASHBOARD
+   MAIN DASHBOARD
 ============================================================ */
 
 .dashboard {
 
     width: 100vw;
-
     height: 100vh;
 
-    min-width: 320px;
-
-    min-height: 240px;
-
-    padding:
-        clamp(8px, 1vw, 20px);
+    min-width: 900px;
 
     display: flex;
 
     flex-direction: column;
 
-    gap:
-        clamp(8px, 1vw, 18px);
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(30, 92, 130, 0.20),
+            transparent 42%
+        ),
+        #06111c;
 
 }
-
 
 
 /* ============================================================
@@ -90,44 +65,31 @@ body {
 
 .top-header {
 
-    width: 100%;
+    height: 12vh;
 
-    min-height:
-        clamp(65px, 10vh, 115px);
-
-    flex-shrink: 0;
+    min-height: 80px;
 
     display: grid;
 
     grid-template-columns:
-        1fr 2fr 1fr;
+        1fr
+        2fr
+        1fr;
 
     align-items: center;
 
     padding:
-        clamp(10px, 1.2vw, 25px);
+        0 2.2vw;
 
-    border:
-        1px solid rgba(0, 153, 255, 0.45);
-
-    border-radius:
-        clamp(12px, 1vw, 22px);
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.08);
 
     background:
-
-        linear-gradient(
-            135deg,
-            rgba(7, 31, 54, 0.97),
-            rgba(4, 18, 33, 0.94)
-        );
+        rgba(4,15,25,0.72);
 
 }
 
-
-
-/* ============================================================
-   CONNECTION
-============================================================ */
 
 .connection {
 
@@ -135,38 +97,32 @@ body {
 
     align-items: center;
 
-    gap:
-        clamp(8px, 1vw, 18px);
+    gap: 12px;
 
 }
 
 
 .connection-dot {
 
-    width:
-        clamp(10px, 1vw, 20px);
-
-    height:
-        clamp(10px, 1vw, 20px);
-
-    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
 
     border-radius: 50%;
 
-    background: #26f57a;
+    background:
+        #ff4d4d;
 
     box-shadow:
-        0 0 15px #26f57a;
+        0 0 15px
+        #ff4d4d;
 
 }
 
 
 .connection-title {
 
-    color: #27f17b;
-
     font-size:
-        clamp(13px, 1.4vw, 28px);
+        clamp(13px, 1vw, 20px);
 
     font-weight: 700;
 
@@ -175,26 +131,21 @@ body {
 
 .connection-subtitle {
 
-    color: #a7c7e7;
-
     margin-top: 4px;
 
     font-size:
-        clamp(9px, 0.8vw, 18px);
+        clamp(10px, 0.7vw, 14px);
+
+    color:
+        #7d96aa;
 
 }
 
 
-
-/* ============================================================
-   HEADER TITLE
-============================================================ */
-
 .header-title {
 
-    min-width: 0;
-
-    text-align: center;
+    text-align:
+        center;
 
 }
 
@@ -202,144 +153,123 @@ body {
 .header-title h1 {
 
     font-size:
-        clamp(18px, 2.7vw, 55px);
+        clamp(18px, 1.6vw, 32px);
 
     letter-spacing:
-        clamp(1px, 0.25vw, 5px);
+        0.15em;
 
-    font-weight: 800;
-
-    color: #eaf4ff;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+    font-weight:
+        700;
 
 }
 
 
 .header-title p {
 
-    margin-top: 5px;
+    margin-top:
+        6px;
+
+    color:
+        #6f8ca5;
 
     font-size:
-        clamp(8px, 0.75vw, 17px);
+        clamp(8px, 0.55vw, 12px);
 
     letter-spacing:
-        clamp(1px, 0.2vw, 4px);
-
-    color: #8eb9df;
+        0.25em;
 
 }
 
 
-
-/* ============================================================
-   CLOCK
-============================================================ */
-
 .clock-section {
 
-    min-width: 0;
-
-    text-align: right;
-
-    border-left:
-        1px solid rgba(150, 200, 255, 0.35);
-
-    padding-left:
-        clamp(10px, 1vw, 22px);
+    text-align:
+        right;
 
 }
 
 
 #date {
 
-    color: #b5d0eb;
-
     font-size:
-        clamp(9px, 0.9vw, 18px);
+        clamp(11px, 0.8vw, 16px);
+
+    color:
+        #8ba5ba;
 
 }
 
 
 #time {
 
-    margin-top: 3px;
-
-    color: #e8f4ff;
+    margin-top:
+        4px;
 
     font-size:
-        clamp(17px, 2vw, 40px);
+        clamp(18px, 1.25vw, 26px);
 
-    font-weight: 700;
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.08em;
 
 }
 
 
-
 /* ============================================================
-   MAIN GRID
+   MAIN
 ============================================================ */
 
 .main-grid {
 
-    flex: 1;
+    flex:
+        1;
 
-    min-width: 0;
+    min-height:
+        0;
 
-    min-height: 0;
-
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
-
-        minmax(330px, 0.9fr)
-
-        minmax(0, 2.1fr);
+        minmax(0, 1.05fr)
+        minmax(0, 1.95fr);
 
     gap:
-        clamp(8px, 1vw, 18px);
+        clamp(10px, 1vw, 18px);
+
+    padding:
+        clamp(10px, 1vw, 18px);
 
 }
 
 
-
 /* ============================================================
-   GENERIC CARD
+   CARD
 ============================================================ */
 
 .card,
 .sensor-card {
 
-    border-radius:
-        clamp(10px, 1vw, 20px);
-
     border:
-        1px solid rgba(0, 153, 255, 0.45);
+        1px solid
+        rgba(255,255,255,0.08);
 
     background:
-
         linear-gradient(
             145deg,
-            rgba(8, 31, 52, 0.98),
-            rgba(4, 17, 30, 0.97)
+            rgba(20,42,58,0.88),
+            rgba(7,20,31,0.94)
         );
 
     box-shadow:
-
         inset 0 1px 0
-        rgba(255,255,255,0.04),
-
-        0 10px 30px
-        rgba(0,0,0,0.25);
-
-    overflow: hidden;
+        rgba(255,255,255,0.035),
+        0 12px 35px
+        rgba(0,0,0,0.20);
 
 }
-
 
 
 /* ============================================================
@@ -348,175 +278,157 @@ body {
 
 .aqi-card {
 
-    min-width: 0;
+    min-width:
+        0;
 
-    min-height: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    text-align: center;
+    min-height:
+        0;
 
     padding:
-        clamp(12px, 1.4vw, 28px);
+        clamp(18px, 1.5vw, 30px);
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
 
 }
 
-
-
-/* ============================================================
-   AQI TITLE
-============================================================ */
 
 .aqi-title {
 
-    width: 100%;
-
     font-size:
-        clamp(15px, 1.5vw, 30px);
-
-    font-weight: 800;
-
-    color: #eaf6ff;
+        clamp(11px, 0.8vw, 16px);
 
     letter-spacing:
-        clamp(0.5px, 0.1vw, 2px);
+        0.18em;
 
-    white-space: nowrap;
+    color:
+        #8ca8bc;
 
 }
 
-
-
-/* ============================================================
-   CURRENT AQI LABEL
-============================================================ */
 
 .current-aqi-label {
 
     margin-top:
-        clamp(7px, 1vh, 13px);
+        3vh;
 
-    color: #82b5dc;
+    color:
+        #6e8ca3;
 
     font-size:
-        clamp(9px, 0.75vw, 15px);
+        clamp(10px, 0.65vw, 14px);
 
-    font-weight: 700;
-
-    letter-spacing: 2px;
+    letter-spacing:
+        0.12em;
 
 }
 
-
-
-/* ============================================================
-   AQI NUMBER
-============================================================ */
 
 .aqi-number {
 
     margin-top:
-        clamp(3px, 0.5vh, 8px);
+        4px;
 
     font-size:
-        clamp(55px, 5.5vw, 105px);
+        clamp(65px, 7vw, 145px);
 
-    line-height: 0.9;
+    line-height:
+        0.95;
 
-    font-weight: 900;
+    font-weight:
+        700;
 
-    color: #ffb52e;
+    color:
+        #26f57a;
 
     text-shadow:
-        0 0 25px rgba(255, 170, 30, 0.3);
+        0 0 28px
+        rgba(38,245,122,0.20);
 
 }
 
 
+.aqi-unit {
+
+    margin-top:
+        8px;
+
+    color:
+        #68869d;
+
+    font-size:
+        clamp(9px, 0.55vw, 12px);
+
+    letter-spacing:
+        0.08em;
+
+}
+
 
 /* ============================================================
-   AQI HISTORY
+   GRAPH
 ============================================================ */
 
 .aqi-history {
 
-    width: 100%;
-
-    min-width: 0;
-
-    min-height: 0;
-
-    flex: 1;
-
     margin-top:
-        clamp(10px, 1.5vh, 20px);
-
-    display: flex;
-
-    flex-direction: column;
+        auto;
 
 }
 
 
 .history-header {
 
-    width: 100%;
+    display:
+        flex;
 
-    display: flex;
+    justify-content:
+        space-between;
 
-    justify-content: space-between;
+    align-items:
+        center;
 
-    align-items: center;
-
-    margin-bottom: 6px;
+    margin-bottom:
+        10px;
 
 }
 
 
 .history-title {
 
-    color: #e7f5ff;
-
     font-size:
-        clamp(10px, 0.85vw, 17px);
+        clamp(10px, 0.65vw, 14px);
 
-    font-weight: 800;
+    letter-spacing:
+        0.1em;
 
-    letter-spacing: 1px;
+    color:
+        #91a9bb;
 
 }
 
 
 .history-period {
 
-    color: #6fa2c9;
-
     font-size:
-        clamp(7px, 0.55vw, 11px);
+        clamp(8px, 0.5vw, 11px);
 
-    font-weight: 700;
+    color:
+        #4e6a7d;
 
 }
 
 
-
-/* ============================================================
-   TREND CHART
-============================================================ */
-
 .trend-chart {
 
-    width: 100%;
+    display:
+        flex;
 
-    flex: 1;
-
-    min-height: 110px;
-
-    display: flex;
+    height:
+        clamp(160px, 19vh, 250px);
 
 }
 
@@ -524,110 +436,104 @@ body {
 .y-axis {
 
     width:
-        clamp(25px, 3vw, 42px);
+        35px;
 
-    flex-shrink: 0;
+    display:
+        flex;
 
-    display: flex;
+    flex-direction:
+        column;
 
-    flex-direction: column;
-
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
     padding:
-        2px 5px 2px 0;
+        2px 0;
 
-    color: #779ab8;
+    color:
+        #526e81;
 
     font-size:
-        clamp(7px, 0.55vw, 11px);
-
-    text-align: right;
-
-    font-weight: 700;
+        9px;
 
 }
 
 
 .chart-area {
 
-    position: relative;
+    position:
+        relative;
 
-    flex: 1;
+    flex:
+        1;
 
-    min-width: 0;
-
-    min-height: 0;
-
-    border-left:
-        1px solid rgba(130, 180, 220, 0.25);
-
-    border-bottom:
-        1px solid rgba(130, 180, 220, 0.25);
-
-    overflow: hidden;
-
-    background:
-        rgba(0, 10, 20, 0.30);
+    min-width:
+        0;
 
 }
 
 
 .chart-line {
 
-    position: absolute;
+    position:
+        absolute;
 
-    left: 0;
+    left:
+        0;
 
-    right: 0;
+    right:
+        0;
 
-    height: 1px;
+    height:
+        1px;
 
     background:
-        rgba(130, 180, 220, 0.14);
+        rgba(255,255,255,0.055);
 
 }
 
 
 .line-200 {
-    top: 0%;
+    top: 0;
 }
+
 
 .line-150 {
     top: 25%;
 }
 
+
 .line-100 {
     top: 50%;
 }
+
 
 .line-50 {
     top: 75%;
 }
 
+
 .line-0 {
-    top: 100%;
+    bottom: 0;
 }
 
 
+#aqiGraph {
 
-/* ============================================================
-   SVG GRAPH
-============================================================ */
+    position:
+        absolute;
 
-.chart-area svg {
+    inset:
+        0;
 
-    position: absolute;
+    width:
+        100%;
 
-    left: 0;
+    height:
+        100%;
 
-    top: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    display: block;
+    overflow:
+        visible;
 
 }
 
@@ -637,38 +543,22 @@ body {
     fill:
         url(#aqiAreaGradient);
 
-    stroke: none;
-
-    transition:
-        d 0.6s ease;
-
 }
 
 
 .graph-line {
 
-    fill: none;
+    fill:
+        none;
 
     stroke:
         url(#aqiLineGradient);
 
-    stroke-width: 4.5;
-
-    stroke-linecap: round;
-
-    stroke-linejoin: round;
+    stroke-width:
+        4;
 
     vector-effect:
         non-scaling-stroke;
-
-    filter:
-        drop-shadow(
-            0 0 6px
-            rgba(30, 200, 255, 0.55)
-        );
-
-    transition:
-        d 0.6s ease;
 
 }
 
@@ -676,44 +566,10 @@ body {
 .graph-point {
 
     fill:
-        #04121f;
+        #07131e;
 
-    stroke-width: 3;
-
-    vector-effect:
-        non-scaling-stroke;
-
-    transition:
-        cx 0.6s ease,
-        cy 0.6s ease;
-
-}
-
-
-.graph-point-pulse {
-
-    fill: none;
-
-    stroke-width: 3;
-
-    opacity: 0.55;
-
-    vector-effect:
-        non-scaling-stroke;
-
-    transform-origin:
-        center;
-
-    transform-box:
-        fill-box;
-
-    animation:
-        aqiPulseRing 2.2s
-        ease-out infinite;
-
-    transition:
-        cx 0.6s ease,
-        cy 0.6s ease;
+    stroke-width:
+        2;
 
 }
 
@@ -721,36 +577,37 @@ body {
 .graph-current-point {
 
     fill:
-        #ffffff;
+        #07131e;
 
-    stroke:
-        #31c8ff;
-
-    stroke-width: 4;
-
-    vector-effect:
-        non-scaling-stroke;
-
-    filter:
-        drop-shadow(
-            0 0 10px
-            rgba(30, 200, 255, 0.9)
-        );
-
-    transition:
-        cx 0.6s ease,
-        cy 0.6s ease,
-        stroke 0.4s ease,
-        filter 0.4s ease;
+    stroke-width:
+        3;
 
 }
 
 
-@keyframes aqiPulseRing {
+.graph-point-pulse {
+
+    fill:
+        none;
+
+    stroke-width:
+        2;
+
+    opacity:
+        0.3;
+
+    animation:
+        pulsePoint 1.5s
+        infinite;
+
+}
+
+
+@keyframes pulsePoint {
 
     0% {
         r: 7;
-        opacity: 0.55;
+        opacity: 0.6;
     }
 
     100% {
@@ -761,122 +618,57 @@ body {
 }
 
 
-
-/* ============================================================
-   CURRENT GRAPH VALUE
-============================================================ */
-
 .current-graph-label {
 
-    position: absolute;
+    position:
+        absolute;
 
-    right: 7px;
+    right:
+        0;
 
-    top: 7px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 6px;
+    top:
+        0;
 
     padding:
-        5px 10px;
-
-    border-radius: 20px;
-
-    background:
-        rgba(3, 20, 34, 0.90);
+        5px 9px;
 
     border:
-        1px solid rgba(49, 200, 255, 0.5);
+        1px solid
+        #26f57a;
 
-    color: #dff8ff;
+    border-radius:
+        5px;
+
+    color:
+        #26f57a;
 
     font-size:
-        clamp(8px, 0.65vw, 13px);
-
-    font-weight: 800;
-
-    letter-spacing: 0.5px;
-
-    white-space: nowrap;
-
-    box-shadow:
-        0 0 14px
-        rgba(30, 190, 255, 0.25);
-
-    transition:
-        border 0.4s ease,
-        box-shadow 0.4s ease;
-
-}
-
-
-.current-graph-label::before {
-
-    content: "";
-
-    width: 7px;
-
-    height: 7px;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
+        10px;
 
     background:
-        currentColor;
-
-    box-shadow:
-        0 0 8px
-        currentColor;
-
-    animation:
-        aqiDotBlink 1.6s
-        ease-in-out infinite;
+        rgba(5,16,25,0.85);
 
 }
 
-
-@keyframes aqiDotBlink {
-
-    0%, 100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.35;
-    }
-
-}
-
-
-
-/* ============================================================
-   TIME SCALE
-============================================================ */
 
 .time-scale {
 
-    display: flex;
+    display:
+        flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    padding-top: 5px;
+    margin-top:
+        6px;
 
-    padding-left:
-        clamp(25px, 3vw, 42px);
-
-    color: #6e91af;
+    color:
+        #4d687b;
 
     font-size:
-        clamp(5px, 0.45vw, 9px);
-
-    font-weight: 700;
+        8px;
 
 }
-
 
 
 /* ============================================================
@@ -885,192 +677,178 @@ body {
 
 .sensor-grid {
 
-    min-width: 0;
+    min-width:
+        0;
 
-    min-height: 0;
+    min-height:
+        0;
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         repeat(3, minmax(0, 1fr));
 
     grid-template-rows:
-        repeat(3, minmax(0, 1fr));
+        repeat(4, minmax(0, 1fr));
 
     gap:
-        clamp(8px, 1vw, 18px);
+        clamp(8px, 0.8vw, 14px);
 
 }
 
-
-
-/* ============================================================
-   SENSOR CARD
-============================================================ */
 
 .sensor-card {
 
-    min-width: 0;
+    min-width:
+        0;
 
-    min-height: 0;
-
-    width: 100%;
-
-    height: 100%;
+    min-height:
+        0;
 
     padding:
-        clamp(8px, 1vw, 20px);
+        clamp(12px, 1vw, 20px);
 
-    display: flex;
+    display:
+        flex;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
-    justify-content: center;
+    justify-content:
+        center;
 
-    align-items: center;
-
-    text-align: center;
+    overflow:
+        hidden;
 
 }
 
-
-
-/* ============================================================
-   SENSOR NAME
-============================================================ */
 
 .sensor-name {
 
-    width: 100%;
-
-    min-width: 0;
-
-    color: #f1f7ff;
+    color:
+        #7793a7;
 
     font-size:
-        clamp(12px, 1.05vw, 23px);
+        clamp(9px, 0.6vw, 13px);
 
-    font-weight: 700;
+    letter-spacing:
+        0.05em;
 
-    line-height: 1.15;
+    white-space:
+        nowrap;
 
-    overflow-wrap: break-word;
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
 
 }
 
-
-
-/* ============================================================
-   SENSOR VALUE
-============================================================ */
 
 .sensor-value {
 
-    width: 100%;
-
-    min-width: 0;
-
     margin-top:
-        clamp(7px, 1vh, 13px);
-
-    color: #ffffff;
+        8px;
 
     font-size:
-        clamp(25px, 2.8vw, 52px);
+        clamp(25px, 2.2vw, 48px);
 
-    line-height: 0.95;
+    line-height:
+        1;
 
-    font-weight: 800;
+    font-weight:
+        700;
 
-    white-space: nowrap;
-
-    overflow: hidden;
+    color:
+        #dcebf4;
 
 }
 
-
-
-/* ============================================================
-   SENSOR UNIT
-============================================================ */
 
 .sensor-unit {
 
-    width: 100%;
-
     margin-top:
-        clamp(6px, 0.8vh, 11px);
+        6px;
 
-    color: #a9d1ef;
+    color:
+        #587388;
 
     font-size:
-        clamp(12px, 1vw, 21px);
-
-    font-weight: 700;
-
-    white-space: nowrap;
-
-    overflow: hidden;
+        clamp(8px, 0.5vw, 11px);
 
 }
 
-
-
-/* ============================================================
-   TEMPERATURE / HUMIDITY
-============================================================ */
 
 .value-suffix {
 
     font-size:
-        clamp(15px, 1.3vw, 27px);
+        0.45em;
 
-    color: #b7d4ed;
+    color:
+        #7390a4;
 
 }
-
 
 
 /* ============================================================
-   SENSOR BORDER COLORS
+   SENSOR ACCENTS
 ============================================================ */
 
-.co2 {
-    border-color: rgba(0, 210, 130, 0.5);
+.pm1 .sensor-value {
+    color: #73c8ff;
 }
 
-.so2 {
-    border-color: rgba(150, 110, 255, 0.5);
+
+.pm25 .sensor-value {
+    color: #26f57a;
 }
 
-.no2 {
-    border-color: rgba(255, 80, 100, 0.5);
+
+.pm10 .sensor-value {
+    color: #8bd8ff;
 }
 
-.co {
-    border-color: rgba(0, 140, 255, 0.5);
+
+.co2 .sensor-value {
+    color: #ffd45a;
 }
 
-.pm15 {
-    border-color: rgba(0, 210, 130, 0.5);
+
+.tvoc .sensor-value {
+    color: #ffb454;
 }
 
-.pm25 {
-    border-color: rgba(220, 180, 0, 0.5);
+
+.co .sensor-value {
+    color: #ff816d;
 }
 
-.pm10 {
-    border-color: rgba(0, 150, 255, 0.5);
+
+.ch2o .sensor-value {
+    color: #c38cff;
 }
 
-.temperature {
-    border-color: rgba(255, 80, 100, 0.5);
+
+.o3 .sensor-value {
+    color: #58e8d3;
 }
 
-.humidity {
-    border-color: rgba(0, 200, 255, 0.5);
+
+.no2 .sensor-value {
+    color: #ff7fb1;
 }
 
+
+.temperature .sensor-value {
+    color: #ffb16e;
+}
+
+
+.humidity .sensor-value {
+    color: #69b8ff;
+}
 
 
 /* ============================================================
@@ -1079,282 +857,204 @@ body {
 
 .bottom-footer {
 
+    height:
+        8vh;
+
     min-height:
-        clamp(45px, 7vh, 80px);
+        55px;
 
-    flex-shrink: 0;
-
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
-        1fr 1fr 1fr;
+        1fr
+        1fr
+        1fr;
 
-    align-items: center;
+    align-items:
+        center;
 
     padding:
-        clamp(8px, 1vw, 18px);
+        0 2vw;
 
-    border:
-        1px solid rgba(0, 153, 255, 0.4);
-
-    border-radius:
-        clamp(10px, 1vw, 20px);
+    border-top:
+        1px solid
+        rgba(255,255,255,0.08);
 
     background:
-        rgba(5, 25, 43, 0.92);
+        rgba(4,15,25,0.72);
 
 }
 
 
-
-/* ============================================================
-   FOOTER LOCATION
-============================================================ */
-
 .location {
 
-    min-width: 0;
+    display:
+        flex;
 
-    display: flex;
+    align-items:
+        center;
 
-    align-items: center;
-
-    gap: 10px;
+    gap:
+        10px;
 
 }
 
 
 .footer-icon {
 
-    color: #76bfff;
+    color:
+        #26f57a;
 
     font-size:
-        clamp(15px, 1.2vw, 25px);
+        10px;
 
 }
 
 
 .footer-label {
 
-    color: #8eafd0;
+    color:
+        #526e81;
 
     font-size:
-        clamp(8px, 0.65vw, 14px);
+        8px;
+
+    letter-spacing:
+        0.08em;
+
+    text-transform:
+        uppercase;
 
 }
 
 
 .footer-value {
 
-    margin-top: 2px;
+    margin-top:
+        3px;
 
-    color: #c8e2fa;
+    color:
+        #8fa8b9;
 
     font-size:
-        clamp(9px, 0.8vw, 16px);
+        clamp(9px, 0.6vw, 13px);
 
 }
 
-
-
-/* ============================================================
-   FOOTER CENTER
-============================================================ */
 
 .footer-message {
 
-    min-width: 0;
+    text-align:
+        center;
 
-    text-align: center;
-
-    color: #82b8e4;
+    color:
+        #526e81;
 
     font-size:
-        clamp(7px, 0.65vw, 14px);
+        clamp(8px, 0.55vw, 11px);
 
     letter-spacing:
-        clamp(0.5px, 0.15vw, 3px);
+        0.12em;
 
 }
 
-
-
-/* ============================================================
-   LAST UPDATED
-============================================================ */
 
 .last-updated {
 
-    min-width: 0;
-
-    text-align: right;
-
-    color: #b7d1e9;
-
-    font-size:
-        clamp(8px, 0.7vw, 15px);
+    text-align:
+        right;
 
 }
 
 
+#lastUpdated {
+
+    margin-top:
+        3px;
+
+    color:
+        #8fa8b9;
+
+    font-size:
+        clamp(9px, 0.6vw, 13px);
+
+}
+
 
 /* ============================================================
-   SMALL HEIGHT
+   RESPONSIVE
 ============================================================ */
 
-@media (max-height: 650px) {
+@media (
+    max-width: 1100px
+) {
 
-    .dashboard {
+    .top-header {
 
-        gap: 6px;
-
-        padding: 7px;
+        grid-template-columns:
+            1fr
+            1.5fr
+            1fr;
 
     }
 
 
+    .header-title h1 {
+
+        letter-spacing:
+            0.08em;
+
+    }
+
+}
+
+
+@media (
+    max-height: 700px
+) {
+
     .top-header {
 
-        min-height: 58px;
-
-        padding: 8px;
+        height:
+            10vh;
 
     }
 
 
     .bottom-footer {
 
-        min-height: 40px;
-
-        padding: 6px;
-
-    }
-
-
-    .sensor-card {
-
-        padding: 6px;
+        height:
+            7vh;
 
     }
 
 
-    .sensor-name {
+    .main-grid {
 
-        font-size: 13px;
+        padding:
+            8px;
 
-    }
-
-
-    .sensor-value {
-
-        font-size: 26px;
-
-        margin-top: 5px;
-
-    }
-
-
-    .sensor-unit {
-
-        font-size: 12px;
-
-        margin-top: 5px;
-
-    }
-
-
-    .aqi-number {
-
-        font-size: 55px;
-
-    }
-
-
-    .aqi-history {
-
-        margin-top: 8px;
-
-    }
-
-
-    .trend-chart {
-
-        min-height: 75px;
-
-    }
-
-}
-
-
-
-/* ============================================================
-   4K DISPLAY
-============================================================ */
-
-@media (min-width: 3000px) {
-
-    .dashboard {
-
-        padding: 22px;
-
-        gap: 20px;
-
-    }
-
-
-    .top-header {
-
-        min-height: 140px;
+        gap:
+            8px;
 
     }
 
 
     .sensor-grid {
 
-        gap: 20px;
+        gap:
+            7px;
 
     }
 
 
     .sensor-card {
 
-        padding: 15px;
-
-    }
-
-
-    .sensor-name {
-
-        font-size: 27px;
-
-    }
-
-
-    .sensor-value {
-
-        font-size: 55px;
-
-    }
-
-
-    .sensor-unit {
-
-        font-size: 23px;
-
-    }
-
-
-    .aqi-title {
-
-        font-size: 30px;
-
-    }
-
-
-    .aqi-number {
-
-        font-size: 100px;
+        padding:
+            9px;
 
     }
 
 }
+```
