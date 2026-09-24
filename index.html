@@ -5,17 +5,23 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Air Quality Monitoring Device</title>
+    <title>
+        Air Quality Monitoring Device
+    </title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
 
 
 <body>
+
 
 <div class="dashboard">
 
@@ -27,8 +33,6 @@
     <header class="top-header">
 
 
-        <!-- CONNECTION -->
-
         <div class="connection">
 
             <span class="connection-dot"></span>
@@ -36,20 +40,17 @@
             <div>
 
                 <div class="connection-title">
-                    Connected
+                    Disconnected
                 </div>
 
                 <div class="connection-subtitle">
-                    ESP32 Online
+                    ZPHS01B Offline
                 </div>
 
             </div>
 
         </div>
 
-
-
-        <!-- MAIN TITLE -->
 
         <div class="header-title">
 
@@ -64,17 +65,14 @@
         </div>
 
 
-
-        <!-- CLOCK -->
-
         <div class="clock-section">
 
             <div id="date">
-                Monday, 22 September 2026
+                --
             </div>
 
             <div id="time">
-                14:32:18
+                --
             </div>
 
         </div>
@@ -98,15 +96,10 @@
         <section class="aqi-card card">
 
 
-            <!-- AQI TITLE -->
-
             <div class="aqi-title">
                 AIR QUALITY MONITOR
             </div>
 
-
-
-            <!-- CURRENT AQI -->
 
             <div class="current-aqi-label">
                 CURRENT AQI
@@ -117,15 +110,10 @@
                 class="aqi-number"
                 id="aqiValue">
 
-                119
+                --
 
             </div>
 
-
-
-            <!-- =================================================
-                 AQI HISTORY
-            ================================================== -->
 
             <div class="aqi-history">
 
@@ -137,42 +125,28 @@
                     </div>
 
                     <div class="history-period">
-                        LAST 6 HOURS
+                        LIVE PM2.5 INDEX
                     </div>
 
                 </div>
 
 
-
-                <!-- GRAPH -->
-
                 <div class="trend-chart">
 
-
-                    <!-- Y AXIS -->
 
                     <div class="y-axis">
 
                         <span>200</span>
-
                         <span>150</span>
-
                         <span>100</span>
-
                         <span>50</span>
-
                         <span>0</span>
 
                     </div>
 
 
-
-                    <!-- GRAPH AREA -->
-
                     <div class="chart-area">
 
-
-                        <!-- REFERENCE LINES -->
 
                         <div class="chart-line line-200"></div>
 
@@ -185,22 +159,20 @@
                         <div class="chart-line line-0"></div>
 
 
-
-                        <!-- SVG -->
-
                         <svg
                             id="aqiGraph"
                             viewBox="0 0 600 220"
                             preserveAspectRatio="none">
 
 
-                            <!-- GRADIENTS -->
-
                             <defs>
 
                                 <linearGradient
                                     id="aqiAreaGradient"
-                                    x1="0" y1="0" x2="0" y2="1">
+                                    x1="0"
+                                    y1="0"
+                                    x2="0"
+                                    y2="1">
 
                                     <stop
                                         id="aqiAreaStopTop"
@@ -217,21 +189,38 @@
 
                                 </linearGradient>
 
+
                                 <linearGradient
                                     id="aqiLineGradient"
-                                    x1="0" y1="0" x2="1" y2="0">
+                                    x1="0"
+                                    y1="0"
+                                    x2="1"
+                                    y2="0">
 
-                                    <stop offset="0%" stop-color="#26f57a"></stop>
-                                    <stop offset="45%" stop-color="#ffd21e"></stop>
-                                    <stop offset="75%" stop-color="#ff9f1e"></stop>
-                                    <stop offset="100%" stop-color="#ff5f4d"></stop>
+                                    <stop
+                                        offset="0%"
+                                        stop-color="#26f57a">
+                                    </stop>
+
+                                    <stop
+                                        offset="45%"
+                                        stop-color="#ffd21e">
+                                    </stop>
+
+                                    <stop
+                                        offset="75%"
+                                        stop-color="#ff9f1e">
+                                    </stop>
+
+                                    <stop
+                                        offset="100%"
+                                        stop-color="#ff5f4d">
+                                    </stop>
 
                                 </linearGradient>
 
                             </defs>
 
-
-                            <!-- FILLED AREA -->
 
                             <path
                                 id="aqiGraphArea"
@@ -240,9 +229,6 @@
                             </path>
 
 
-
-                            <!-- TREND LINE -->
-
                             <path
                                 id="aqiGraphLine"
                                 class="graph-line"
@@ -250,14 +236,10 @@
                             </path>
 
 
+                            <g
+                                id="aqiGraphDots">
+                            </g>
 
-                            <!-- HISTORY POINTS -->
-
-                            <g id="aqiGraphDots"></g>
-
-
-
-                            <!-- CURRENT POINT PULSE -->
 
                             <circle
                                 id="aqiGraphPointPulse"
@@ -268,9 +250,6 @@
                             </circle>
 
 
-
-                            <!-- CURRENT POINT -->
-
                             <circle
                                 id="aqiGraphPoint"
                                 class="graph-current-point"
@@ -279,17 +258,15 @@
                                 r="7">
                             </circle>
 
+
                         </svg>
 
-
-
-                        <!-- CURRENT VALUE -->
 
                         <div
                             id="currentGraphLabel"
                             class="current-graph-label">
 
-                            AQI 119
+                            AQI --
 
                         </div>
 
@@ -298,9 +275,6 @@
 
                 </div>
 
-
-
-                <!-- TIME SCALE -->
 
                 <div class="time-scale">
 
@@ -321,7 +295,6 @@
                 </div>
 
 
-
             </div>
 
 
@@ -336,115 +309,19 @@
         <section class="sensor-grid">
 
 
-            <!-- CO2 -->
-
-            <div class="sensor-card co2">
-
-                <div class="sensor-name">
-                    Carbon Dioxide
-                </div>
-
-                <div
-                    class="sensor-value"
-                    id="co2">
-
-                    453
-
-                </div>
-
-                <div class="sensor-unit">
-                    ppm
-                </div>
-
-            </div>
-
-
-
-            <!-- SO2 -->
-
-            <div class="sensor-card so2">
-
-                <div class="sensor-name">
-                    Sulfur Dioxide
-                </div>
-
-                <div
-                    class="sensor-value"
-                    id="so2">
-
-                    0.02
-
-                </div>
-
-                <div class="sensor-unit">
-                    µg/m³
-                </div>
-
-            </div>
-
-
-
-            <!-- NO2 -->
-
-            <div class="sensor-card no2">
-
-                <div class="sensor-name">
-                    Nitrogen Dioxide
-                </div>
-
-                <div
-                    class="sensor-value"
-                    id="no2">
-
-                    0.69
-
-                </div>
-
-                <div class="sensor-unit">
-                    µg/m³
-                </div>
-
-            </div>
-
-
-
-            <!-- CO -->
-
-            <div class="sensor-card co">
-
-                <div class="sensor-name">
-                    Carbon Monoxide
-                </div>
-
-                <div
-                    class="sensor-value"
-                    id="co">
-
-                    0.50
-
-                </div>
-
-                <div class="sensor-unit">
-                    mg/m³
-                </div>
-
-            </div>
-
-
-
-            <!-- PM1.5 -->
+            <!-- PM1.0 -->
 
             <div class="sensor-card pm15">
 
                 <div class="sensor-name">
-                    Particulate Matter 1.5
+                    Particulate Matter 1.0
                 </div>
 
                 <div
                     class="sensor-value"
-                    id="pm15">
+                    id="pm1_0">
 
-                    35
+                    --
 
                 </div>
 
@@ -453,7 +330,6 @@
                 </div>
 
             </div>
-
 
 
             <!-- PM2.5 -->
@@ -468,7 +344,7 @@
                     class="sensor-value"
                     id="pm25">
 
-                    43
+                    --
 
                 </div>
 
@@ -477,7 +353,6 @@
                 </div>
 
             </div>
-
 
 
             <!-- PM10 -->
@@ -492,7 +367,7 @@
                     class="sensor-value"
                     id="pm10">
 
-                    48
+                    --
 
                 </div>
 
@@ -502,6 +377,143 @@
 
             </div>
 
+
+            <!-- CO2 -->
+
+            <div class="sensor-card co2">
+
+                <div class="sensor-name">
+                    Carbon Dioxide
+                </div>
+
+                <div
+                    class="sensor-value"
+                    id="co2">
+
+                    --
+
+                </div>
+
+                <div class="sensor-unit">
+                    ppm
+                </div>
+
+            </div>
+
+
+            <!-- TVOC -->
+
+            <div class="sensor-card co">
+
+                <div class="sensor-name">
+                    TVOC
+                </div>
+
+                <div
+                    class="sensor-value"
+                    id="tvoc">
+
+                    --
+
+                </div>
+
+                <div class="sensor-unit">
+                    Grade
+                </div>
+
+            </div>
+
+
+            <!-- CO -->
+
+            <div class="sensor-card no2">
+
+                <div class="sensor-name">
+                    Carbon Monoxide
+                </div>
+
+                <div
+                    class="sensor-value"
+                    id="co">
+
+                    --
+
+                </div>
+
+                <div class="sensor-unit">
+                    ppm
+                </div>
+
+            </div>
+
+
+            <!-- CH2O -->
+
+            <div class="sensor-card so2">
+
+                <div class="sensor-name">
+                    Formaldehyde CH₂O
+                </div>
+
+                <div
+                    class="sensor-value"
+                    id="ch2o">
+
+                    --
+
+                </div>
+
+                <div class="sensor-unit">
+                    mg/m³
+                </div>
+
+            </div>
+
+
+            <!-- O3 -->
+
+            <div class="sensor-card temperature">
+
+                <div class="sensor-name">
+                    Ozone O₃
+                </div>
+
+                <div
+                    class="sensor-value"
+                    id="o3">
+
+                    --
+
+                </div>
+
+                <div class="sensor-unit">
+                    ppm
+                </div>
+
+            </div>
+
+
+            <!-- NO2 -->
+
+            <div class="sensor-card humidity">
+
+                <div class="sensor-name">
+                    Nitrogen Dioxide NO₂
+                </div>
+
+                <div
+                    class="sensor-value"
+                    id="no2">
+
+                    --
+
+                </div>
+
+                <div class="sensor-unit">
+                    ppm
+                </div>
+
+            </div>
 
 
             <!-- TEMPERATURE -->
@@ -515,7 +527,7 @@
                 <div class="sensor-value">
 
                     <span id="temperature">
-                        31.6
+                        --
                     </span>
 
                     <span class="value-suffix">
@@ -531,7 +543,6 @@
             </div>
 
 
-
             <!-- HUMIDITY -->
 
             <div class="sensor-card humidity">
@@ -543,7 +554,7 @@
                 <div class="sensor-value">
 
                     <span id="humidity">
-                        74.8
+                        --
                     </span>
 
                     <span class="value-suffix">
@@ -560,6 +571,7 @@
 
 
         </section>
+
 
     </main>
 
@@ -581,17 +593,16 @@
             <div>
 
                 <div class="footer-label">
-                    Location
+                    Sensor
                 </div>
 
                 <div class="footer-value">
-                    Railway Platform
+                    Winsen ZPHS01B
                 </div>
 
             </div>
 
         </div>
-
 
 
         <div class="footer-message">
@@ -605,7 +616,6 @@
         </div>
 
 
-
         <div class="last-updated">
 
             <div class="footer-label">
@@ -613,7 +623,7 @@
             </div>
 
             <div id="lastUpdated">
-                22 Sep 2026 14:32:18
+                --
             </div>
 
         </div>
