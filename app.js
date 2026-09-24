@@ -1,1083 +1,568 @@
-```javascript
-/* ============================================================
-   ZPHS01B AIR QUALITY DASHBOARD
-   RASPBERRY PI FRONTEND
-   REAL SENSOR DATA ONLY
-============================================================ */
+/* =========================================================
+   API
+   ========================================================= */
+
+const API_URL = "/api/data";
 
 
-/* ============================================================
-   SENSOR DATA
-============================================================ */
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
 
-let sensorData = {
+const connectionDot =
+    document.getElementById("connectionDot");
 
-    connected: false,
+const connectionText =
+    document.getElementById("connectionText");
 
-    aqi: null,
+const aqiValue =
+    document.getElementById("aqiValue");
 
-    pm1_0: null,
-    pm2_5: null,
-    pm10: null,
+const aqiStatus =
+    document.getElementById("aqiStatus");
 
-    co2: null,
-    tvoc: null,
+const currentGraphLabel =
+    document.getElementById("currentGraphLabel");
 
-    temperature: null,
-    humidity: null,
+const aqiGraphLine =
+    document.getElementById("aqiGraphLine");
 
-    ch2o: null,
-    co: null,
-    o3: null,
-    no2: null,
+const aqiGraphDots =
+    document.getElementById("aqiGraphDots");
 
-    last_update: null
+const aqiGraphPoint =
+    document.getElementById("aqiGraphPoint");
 
+const aqiGraphPointPulse =
+    document.getElementById("aqiGraphPointPulse");
+
+const dateDisplay =
+    document.getElementById("dateDisplay");
+
+const clockDisplay =
+    document.getElementById("clockDisplay");
+
+
+/* =========================================================
+   SENSOR ELEMENTS
+   ========================================================= */
+
+const sensorElements = {
+
+    co2: document.getElementById("co2"),
+
+    tvoc: document.getElementById("tvoc"),
+
+    no2: document.getElementById("no2"),
+
+    co: document.getElementById("co"),
+
+    pm1_0: document.getElementById("pm1_0"),
+
+    pm2_5: document.getElementById("pm2_5"),
+
+    pm10: document.getElementById("pm10"),
+
+    ch2o: document.getElementById("ch2o"),
+
+    o3: document.getElementById("o3"),
+
+    temperature:
+        document.getElementById("temperature"),
+
+    humidity:
+        document.getElementById("humidity")
 };
 
 
-/* ============================================================
+/* =========================================================
    AQI HISTORY
-============================================================ */
+   ========================================================= */
 
-let aqiHistory = [];
+const aqiHistory = [];
 
-const MAX_HISTORY = 7;
-
-
-/* ============================================================
-   CLOCK
-============================================================ */
-
-function updateClock() {
-
-    const now = new Date();
+const MAX_HISTORY = 30;
 
 
-    const dateOptions = {
-
-        weekday: "short",
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-
-    };
-
-
-    const dateString =
-        now.toLocaleDateString(
-            "en-IN",
-            dateOptions
-        );
-
-
-    const timeString =
-        now.toLocaleTimeString(
-            "en-IN",
-            {
-
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: false
-
-            }
-        );
-
-
-    const dateElement =
-        document.getElementById("date");
-
-
-    const timeElement =
-        document.getElementById("time");
-
-
-    if (dateElement) {
-
-        dateElement.textContent =
-            dateString;
-
-    }
-
-
-    if (timeElement) {
-
-        timeElement.textContent =
-            timeString;
-
-    }
-
-}
-
-
-/* ============================================================
-   FORMAT VALUE
-============================================================ */
-
-function displayValue(
-    value,
-    decimals = 0
-) {
-
-    if (
-        value === null ||
-        value === undefined ||
-        value === "" ||
-        !Number.isFinite(
-            Number(value)
-        )
-    ) {
-
-        return "--";
-
-    }
-
-
-    return Number(value)
-        .toFixed(decimals);
-
-}
-
-
-/* ============================================================
+/* =========================================================
    CONNECTION STATUS
-============================================================ */
+   ========================================================= */
 
-function updateConnectionStatus() {
+function setConnectionStatus(connected) {
 
-    const title =
-        document.querySelector(
-            ".connection-title"
+    if (connected) {
+
+        connectionDot.classList.remove(
+            "disconnected"
         );
 
-
-    const subtitle =
-        document.querySelector(
-            ".connection-subtitle"
+        connectionDot.classList.add(
+            "connected"
         );
 
+        connectionText.textContent =
+            "SENSOR CONNECTED";
 
-    const dot =
-        document.querySelector(
-            ".connection-dot"
+    } else {
+
+        connectionDot.classList.remove(
+            "connected"
         );
 
+        connectionDot.classList.add(
+            "disconnected"
+        );
 
-    if (
-        !title ||
-        !subtitle ||
-        !dot
-    ) {
-
-        return;
-
+        connectionText.textContent =
+            "SENSOR DISCONNECTED";
     }
-
-
-    if (sensorData.connected) {
-
-        title.textContent =
-            "Connected";
-
-
-        subtitle.textContent =
-            "ZPHS01B Online";
-
-
-        dot.style.background =
-            "#26f57a";
-
-
-        dot.style.boxShadow =
-            "0 0 15px #26f57a";
-
-    }
-
-    else {
-
-        title.textContent =
-            "Disconnected";
-
-
-        subtitle.textContent =
-            "ZPHS01B Offline";
-
-
-        dot.style.background =
-            "#ff4d4d";
-
-
-        dot.style.boxShadow =
-            "0 0 15px #ff4d4d";
-
-    }
-
 }
 
 
-/* ============================================================
-   UPDATE DASHBOARD
-============================================================ */
-
-function updateDashboard() {
-
-
-    /* --------------------------------------------------------
-       AQI
-    -------------------------------------------------------- */
-
-    const aqiElement =
-        document.getElementById(
-            "aqiValue"
-        );
-
-
-    if (aqiElement) {
-
-        aqiElement.textContent =
-            displayValue(
-                sensorData.aqi,
-                0
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       PM1.0
-    -------------------------------------------------------- */
-
-    const pm1Element =
-        document.getElementById(
-            "pm1_0"
-        );
-
-
-    if (pm1Element) {
-
-        pm1Element.textContent =
-            displayValue(
-                sensorData.pm1_0,
-                0
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       PM2.5
-    -------------------------------------------------------- */
-
-    const pm25Element =
-        document.getElementById(
-            "pm25"
-        );
-
-
-    if (pm25Element) {
-
-        pm25Element.textContent =
-            displayValue(
-                sensorData.pm2_5,
-                0
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       PM10
-    -------------------------------------------------------- */
-
-    const pm10Element =
-        document.getElementById(
-            "pm10"
-        );
-
-
-    if (pm10Element) {
-
-        pm10Element.textContent =
-            displayValue(
-                sensorData.pm10,
-                0
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       CO2
-    -------------------------------------------------------- */
-
-    const co2Element =
-        document.getElementById(
-            "co2"
-        );
-
-
-    if (co2Element) {
-
-        co2Element.textContent =
-            displayValue(
-                sensorData.co2,
-                0
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       TVOC
-    -------------------------------------------------------- */
-
-    const tvocElement =
-        document.getElementById(
-            "tvoc"
-        );
-
-
-    if (tvocElement) {
-
-        tvocElement.textContent =
-            displayValue(
-                sensorData.tvoc,
-                0
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       CO
-    -------------------------------------------------------- */
-
-    const coElement =
-        document.getElementById(
-            "co"
-        );
-
-
-    if (coElement) {
-
-        coElement.textContent =
-            displayValue(
-                sensorData.co,
-                1
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       CH2O
-    -------------------------------------------------------- */
-
-    const ch2oElement =
-        document.getElementById(
-            "ch2o"
-        );
-
-
-    if (ch2oElement) {
-
-        ch2oElement.textContent =
-            displayValue(
-                sensorData.ch2o,
-                3
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       O3
-    -------------------------------------------------------- */
-
-    const o3Element =
-        document.getElementById(
-            "o3"
-        );
-
-
-    if (o3Element) {
-
-        o3Element.textContent =
-            displayValue(
-                sensorData.o3,
-                2
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       NO2
-    -------------------------------------------------------- */
-
-    const no2Element =
-        document.getElementById(
-            "no2"
-        );
-
-
-    if (no2Element) {
-
-        no2Element.textContent =
-            displayValue(
-                sensorData.no2,
-                2
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       TEMPERATURE
-    -------------------------------------------------------- */
-
-    const temperatureElement =
-        document.getElementById(
-            "temperature"
-        );
-
-
-    if (temperatureElement) {
-
-        temperatureElement.textContent =
-            displayValue(
-                sensorData.temperature,
-                1
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       HUMIDITY
-    -------------------------------------------------------- */
-
-    const humidityElement =
-        document.getElementById(
-            "humidity"
-        );
-
-
-    if (humidityElement) {
-
-        humidityElement.textContent =
-            displayValue(
-                sensorData.humidity,
-                1
-            );
-
-    }
-
-
-    /* --------------------------------------------------------
-       LAST UPDATE
-    -------------------------------------------------------- */
-
-    const lastUpdatedElement =
-        document.getElementById(
-            "lastUpdated"
-        );
-
-
-    if (lastUpdatedElement) {
-
-        if (sensorData.last_update) {
-
-            const date =
-                new Date(
-                    sensorData.last_update
-                        .replace(" ", "T")
-                );
-
-
-            if (
-                !Number.isNaN(
-                    date.getTime()
-                )
-            ) {
-
-                lastUpdatedElement.textContent =
-                    date.toLocaleTimeString(
-                        "en-IN",
-                        {
-
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit",
-                            hour12: false
-
-                        }
-                    );
-
-            }
-
-            else {
-
-                lastUpdatedElement.textContent =
-                    sensorData.last_update;
-
-            }
-
-        }
-
-        else {
-
-            lastUpdatedElement.textContent =
-                "--";
-
-        }
-
-    }
-
-
-    updateConnectionStatus();
-
-    updateAQIGraph();
-
-}
-
-
-/* ============================================================
-   AQI COLOR
-============================================================ */
-
-function aqiSeverityColor(
-    value
-) {
+/* =========================================================
+   DISPLAY VALUE
+   ========================================================= */
+
+function displayValue(element, value) {
 
     if (
+        value === undefined ||
         value === null ||
-        value === undefined
+        value === ""
     ) {
 
-        return "#6f8ca5";
+        element.textContent = "--";
 
+        return;
     }
 
-
-    if (value <= 50) {
-
-        return "#26f57a";
-
-    }
-
-
-    if (value <= 100) {
-
-        return "#ffd21e";
-
-    }
-
-
-    if (value <= 150) {
-
-        return "#ff9f1e";
-
-    }
-
-
-    if (value <= 200) {
-
-        return "#ff5f4d";
-
-    }
-
-
-    return "#ff2f6b";
-
+    element.textContent = value;
 }
 
 
-/* ============================================================
-   CREATE SMOOTH GRAPH PATH
-============================================================ */
+/* =========================================================
+   UPDATE SENSOR VALUES
+   ========================================================= */
 
-function buildSmoothPath(
-    points
-) {
+function updateSensors(data) {
 
-    if (
-        points.length === 0
-    ) {
+    displayValue(
+        sensorElements.co2,
+        data.co2
+    );
 
-        return "";
+    displayValue(
+        sensorElements.tvoc,
+        data.tvoc
+    );
 
-    }
+    displayValue(
+        sensorElements.no2,
+        data.no2
+    );
 
+    displayValue(
+        sensorElements.co,
+        data.co
+    );
 
-    if (
-        points.length === 1
-    ) {
+    displayValue(
+        sensorElements.pm1_0,
+        data.pm1_0
+    );
 
-        return (
-            `M ${points[0].x} ` +
-            `${points[0].y}`
-        );
+    displayValue(
+        sensorElements.pm2_5,
+        data.pm2_5
+    );
 
-    }
+    displayValue(
+        sensorElements.pm10,
+        data.pm10
+    );
 
+    displayValue(
+        sensorElements.ch2o,
+        data.ch2o
+    );
 
-    let d =
-        `M ${points[0].x} ` +
-        `${points[0].y}`;
+    displayValue(
+        sensorElements.o3,
+        data.o3
+    );
 
+    displayValue(
+        sensorElements.temperature,
+        data.temperature
+    );
 
-    for (
-        let i = 0;
-        i < points.length - 1;
-        i++
-    ) {
-
-        const p0 =
-            points[i - 1] ||
-            points[i];
-
-
-        const p1 =
-            points[i];
-
-
-        const p2 =
-            points[i + 1];
-
-
-        const p3 =
-            points[i + 2] ||
-            p2;
-
-
-        const cp1x =
-            p1.x +
-            (p2.x - p0.x) / 6;
-
-
-        const cp1y =
-            p1.y +
-            (p2.y - p0.y) / 6;
-
-
-        const cp2x =
-            p2.x -
-            (p3.x - p1.x) / 6;
-
-
-        const cp2y =
-            p2.y -
-            (p3.y - p1.y) / 6;
-
-
-        d +=
-            ` C ${cp1x} ${cp1y}, ` +
-            `${cp2x} ${cp2y}, ` +
-            `${p2.x} ${p2.y}`;
-
-    }
-
-
-    return d;
-
+    displayValue(
+        sensorElements.humidity,
+        data.humidity
+    );
 }
 
 
-/* ============================================================
-   UPDATE AQI GRAPH
-============================================================ */
+/* =========================================================
+   AQI STATUS
+   ========================================================= */
 
-function updateAQIGraph() {
-
-    const graphLine =
-        document.getElementById(
-            "aqiGraphLine"
-        );
-
-
-    const graphArea =
-        document.getElementById(
-            "aqiGraphArea"
-        );
-
-
-    const graphPoint =
-        document.getElementById(
-            "aqiGraphPoint"
-        );
-
-
-    const graphPointPulse =
-        document.getElementById(
-            "aqiGraphPointPulse"
-        );
-
-
-    const graphDots =
-        document.getElementById(
-            "aqiGraphDots"
-        );
-
-
-    const graphLabel =
-        document.getElementById(
-            "currentGraphLabel"
-        );
-
+function getAQIStatus(aqi) {
 
     if (
-        !graphLine ||
-        !graphArea ||
-        !graphPoint
+        aqi === undefined ||
+        aqi === null ||
+        isNaN(aqi)
     ) {
 
-        return;
-
+        return "WAITING FOR SENSOR";
     }
 
 
+    if (aqi <= 50) {
+        return "GOOD";
+    }
+
+    if (aqi <= 100) {
+        return "MODERATE";
+    }
+
+    if (aqi <= 150) {
+        return "UNHEALTHY FOR SENSITIVE GROUPS";
+    }
+
+    if (aqi <= 200) {
+        return "UNHEALTHY";
+    }
+
+    if (aqi <= 300) {
+        return "VERY UNHEALTHY";
+    }
+
+    return "HAZARDOUS";
+}
+
+
+/* =========================================================
+   UPDATE AQI
+   ========================================================= */
+
+function updateAQI(value) {
+
     if (
-        aqiHistory.length === 0
+        value === undefined ||
+        value === null ||
+        isNaN(value)
     ) {
 
-        graphLine.setAttribute(
-            "d",
-            ""
-        );
+        aqiValue.textContent = "--";
 
+        aqiStatus.textContent =
+            "WAITING FOR SENSOR";
 
-        graphArea.setAttribute(
-            "d",
-            ""
-        );
-
-
-        if (graphDots) {
-
-            graphDots.innerHTML =
-                "";
-
-        }
-
+        currentGraphLabel.textContent =
+            "--";
 
         return;
-
     }
 
 
-    const graphWidth = 600;
-
-    const graphHeight = 220;
-
-    const topPadding = 5;
-
-    const bottomPadding = 5;
+    const numericValue =
+        Number(value);
 
 
-    const usableHeight =
-        graphHeight -
-        topPadding -
-        bottomPadding;
+    aqiValue.textContent =
+        Math.round(numericValue);
 
 
-    const minAQI = 0;
+    aqiStatus.textContent =
+        getAQIStatus(numericValue);
 
-    const maxAQI = 200;
+
+    currentGraphLabel.textContent =
+        Math.round(numericValue);
+
+
+    addAQIHistory(numericValue);
+}
+
+
+/* =========================================================
+   AQI HISTORY
+   ========================================================= */
+
+function addAQIHistory(value) {
+
+    if (
+        value === undefined ||
+        value === null ||
+        isNaN(value)
+    ) {
+
+        return;
+    }
+
+
+    aqiHistory.push(Number(value));
+
+
+    if (aqiHistory.length > MAX_HISTORY) {
+
+        aqiHistory.shift();
+    }
+
+
+    drawAQIGraph();
+}
+
+
+/* =========================================================
+   DRAW AQI GRAPH
+   ========================================================= */
+
+function drawAQIGraph() {
+
+    if (aqiHistory.length === 0) {
+
+        return;
+    }
+
+
+    const width = 500;
+
+    const height = 180;
+
+
+    const maxValue =
+        Math.max(
+            100,
+            ...aqiHistory
+        );
+
+
+    const minValue = 0;
 
 
     const points = [];
 
 
-    const totalPoints =
-        aqiHistory.length;
-
-
     aqiHistory.forEach(
-        (
-            value,
-            index
-        ) => {
-
-            const safeValue =
-                Math.max(
-                    minAQI,
-                    Math.min(
-                        maxAQI,
-                        Number(value)
-                    )
-                );
-
+        (value, index) => {
 
             let x;
 
 
-            if (
-                totalPoints === 1
-            ) {
+            if (aqiHistory.length === 1) {
+
+                x = width / 2;
+
+            } else {
 
                 x =
-                    graphWidth / 2;
-
+                    (index /
+                        (aqiHistory.length - 1)
+                    ) * width;
             }
 
-            else {
 
-                x =
-                    (
-                        index /
-                        (
-                            totalPoints -
-                            1
-                        )
-                    ) *
-                    graphWidth;
-
-            }
+            const normalized =
+                (value - minValue) /
+                (maxValue - minValue);
 
 
             const y =
-                graphHeight -
-                bottomPadding -
+                height -
                 (
-                    (
-                        safeValue -
-                        minAQI
-                    ) /
-                    (
-                        maxAQI -
-                        minAQI
-                    )
-                ) *
-                usableHeight;
+                    normalized *
+                    height
+                );
 
 
-            points.push({
-
-                x: x,
-                y: y,
-                value: safeValue
-
-            });
-
+            points.push(
+                `${x},${y}`
+            );
         }
     );
 
 
-    const linePath =
-        buildSmoothPath(
-            points
-        );
-
-
-    graphLine.setAttribute(
-        "d",
-        linePath
+    aqiGraphLine.setAttribute(
+        "points",
+        points.join(" ")
     );
 
 
-    const first =
-        points[0];
-
-
-    const last =
-        points[
-            points.length - 1
-        ];
-
-
-    let areaPath =
-        linePath;
-
-
-    areaPath +=
-        ` L ${last.x} ` +
-        `${graphHeight}`;
-
-
-    areaPath +=
-        ` L ${first.x} ` +
-        `${graphHeight}`;
-
-
-    areaPath +=
-        " Z";
-
-
-    graphArea.setAttribute(
-        "d",
-        areaPath
+    drawGraphDots(
+        aqiHistory,
+        width,
+        height,
+        maxValue
     );
 
 
-    /* --------------------------------------------------------
-       GRAPH DOTS
-    -------------------------------------------------------- */
+    const lastIndex =
+        aqiHistory.length - 1;
 
-    if (graphDots) {
-
-        graphDots.innerHTML =
-            "";
+    const lastValue =
+        aqiHistory[lastIndex];
 
 
-        points.forEach(
+    let lastX;
+
+    if (aqiHistory.length === 1) {
+
+        lastX = width / 2;
+
+    } else {
+
+        lastX =
             (
-                point,
-                index
-            ) => {
-
-                if (
-                    index ===
-                    points.length - 1
-                ) {
-
-                    return;
-
-                }
-
-
-                const dot =
-                    document.createElementNS(
-                        "http://www.w3.org/2000/svg",
-                        "circle"
-                    );
-
-
-                dot.setAttribute(
-                    "class",
-                    "graph-point"
-                );
-
-
-                dot.setAttribute(
-                    "cx",
-                    point.x
-                );
-
-
-                dot.setAttribute(
-                    "cy",
-                    point.y
-                );
-
-
-                dot.setAttribute(
-                    "r",
-                    4.5
-                );
-
-
-                dot.setAttribute(
-                    "stroke",
-                    aqiSeverityColor(
-                        point.value
-                    )
-                );
-
-
-                dot.setAttribute(
-                    "opacity",
-                    "0.8"
-                );
-
-
-                graphDots.appendChild(
-                    dot
-                );
-
-            }
-        );
-
+                lastIndex /
+                (aqiHistory.length - 1)
+            ) * width;
     }
 
 
-    /* --------------------------------------------------------
-       CURRENT POINT
-    -------------------------------------------------------- */
+    const normalizedLast =
+        lastValue / maxValue;
 
-    const liveColor =
-        aqiSeverityColor(
-            last.value
+
+    const lastY =
+        height -
+        (
+            normalizedLast *
+            height
         );
 
 
-    graphPoint.setAttribute(
+    aqiGraphPoint.setAttribute(
         "cx",
-        last.x
+        lastX
     );
 
-
-    graphPoint.setAttribute(
+    aqiGraphPoint.setAttribute(
         "cy",
-        last.y
+        lastY
+    );
+
+    aqiGraphPoint.setAttribute(
+        "opacity",
+        "1"
     );
 
 
-    graphPoint.setAttribute(
-        "stroke",
-        liveColor
+    aqiGraphPointPulse.setAttribute(
+        "cx",
+        lastX
     );
 
+    aqiGraphPointPulse.setAttribute(
+        "cy",
+        lastY
+    );
 
-    graphPoint.style.filter =
-        `drop-shadow(0 0 10px ${liveColor})`;
-
-
-    if (graphPointPulse) {
-
-        graphPointPulse.setAttribute(
-            "cx",
-            last.x
-        );
-
-
-        graphPointPulse.setAttribute(
-            "cy",
-            last.y
-        );
-
-
-        graphPointPulse.setAttribute(
-            "stroke",
-            liveColor
-        );
-
-    }
-
-
-    if (graphLabel) {
-
-        graphLabel.textContent =
-            `AQI ${Math.round(
-                last.value
-            )}`;
-
-
-        graphLabel.style.color =
-            liveColor;
-
-
-        graphLabel.style.borderColor =
-            liveColor;
-
-    }
-
+    aqiGraphPointPulse.setAttribute(
+        "opacity",
+        "0.5"
+    );
 }
 
 
-/* ============================================================
-   READ DATA FROM RASPBERRY PI
-============================================================ */
+/* =========================================================
+   GRAPH DOTS
+   ========================================================= */
 
-async function readSensorData() {
+function drawGraphDots(
+    values,
+    width,
+    height,
+    maxValue
+) {
+
+    aqiGraphDots.innerHTML = "";
+
+
+    values.forEach(
+        (value, index) => {
+
+            let x;
+
+
+            if (values.length === 1) {
+
+                x = width / 2;
+
+            } else {
+
+                x =
+                    (
+                        index /
+                        (values.length - 1)
+                    ) * width;
+            }
+
+
+            const y =
+                height -
+                (
+                    (value / maxValue) *
+                    height
+                );
+
+
+            const circle =
+                document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "circle"
+                );
+
+
+            circle.setAttribute(
+                "cx",
+                x
+            );
+
+            circle.setAttribute(
+                "cy",
+                y
+            );
+
+            circle.setAttribute(
+                "r",
+                "2.5"
+            );
+
+            circle.setAttribute(
+                "fill",
+                "currentColor"
+            );
+
+            circle.setAttribute(
+                "opacity",
+                "0.75"
+            );
+
+
+            aqiGraphDots.appendChild(
+                circle
+            );
+        }
+    );
+}
+
+
+/* =========================================================
+   GET SENSOR DATA
+   ========================================================= */
+
+async function getSensorData() {
 
     try {
 
         const response =
             await fetch(
-                "/api/data",
+                API_URL,
                 {
+                    method: "GET",
                     cache: "no-store"
                 }
             );
@@ -1086,9 +571,8 @@ async function readSensorData() {
         if (!response.ok) {
 
             throw new Error(
-                "API request failed"
+                `HTTP ${response.status}`
             );
-
         }
 
 
@@ -1096,91 +580,106 @@ async function readSensorData() {
             await response.json();
 
 
-        /* ----------------------------------------------------
-           IMPORTANT:
-           DATA COMES DIRECTLY FROM PYTHON BACKEND.
-           NO RANDOM VALUES ARE CREATED HERE.
-        ---------------------------------------------------- */
-
-        sensorData =
-            data;
+        setConnectionStatus(true);
 
 
-        /* ----------------------------------------------------
-           ADD ONLY REAL AQI VALUES
-        ---------------------------------------------------- */
-
-        if (
-            sensorData.connected === true &&
-            sensorData.aqi !== null &&
-            sensorData.aqi !== undefined &&
-            Number.isFinite(
-                Number(
-                    sensorData.aqi
-                )
-            )
-        ) {
-
-            aqiHistory.push(
-                Number(
-                    sensorData.aqi
-                )
-            );
+        updateSensors(data);
 
 
-            if (
-                aqiHistory.length >
-                MAX_HISTORY
-            ) {
-
-                aqiHistory.shift();
-
-            }
-
-        }
+        updateAQI(data.aqi);
 
 
-        updateDashboard();
-
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
-            "Unable to read sensor data:",
+            "Sensor API error:",
             error
         );
 
 
-        sensorData.connected =
-            false;
+        setConnectionStatus(false);
 
 
-        updateConnectionStatus();
+        Object.values(sensorElements)
+            .forEach(
+                element => {
 
+                    element.textContent =
+                        "--";
+                }
+            );
+
+
+        aqiValue.textContent =
+            "--";
+
+        aqiStatus.textContent =
+            "SENSOR DISCONNECTED";
+
+        currentGraphLabel.textContent =
+            "--";
     }
-
 }
 
 
-/* ============================================================
-   STARTUP
-============================================================ */
+/* =========================================================
+   CLOCK
+   ========================================================= */
 
-function initializeDashboard() {
+function updateClock() {
 
-    updateClock();
+    const now =
+        new Date();
 
-    updateDashboard();
 
-    readSensorData();
+    const day =
+        String(
+            now.getDate()
+        ).padStart(2, "0");
 
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0");
+
+
+    const year =
+        now.getFullYear();
+
+
+    const hours =
+        String(
+            now.getHours()
+        ).padStart(2, "0");
+
+
+    const minutes =
+        String(
+            now.getMinutes()
+        ).padStart(2, "0");
+
+
+    const seconds =
+        String(
+            now.getSeconds()
+        ).padStart(2, "0");
+
+
+    dateDisplay.textContent =
+        `${day}/${month}/${year}`;
+
+
+    clockDisplay.textContent =
+        `${hours}:${minutes}:${seconds}`;
 }
 
 
-/* ============================================================
-   CLOCK UPDATE
-============================================================ */
+/* =========================================================
+   START CLOCK
+   ========================================================= */
+
+updateClock();
 
 setInterval(
     updateClock,
@@ -1188,20 +687,13 @@ setInterval(
 );
 
 
-/* ============================================================
-   SENSOR UPDATE
-   Every 2 seconds
-============================================================ */
+/* =========================================================
+   START SENSOR UPDATES
+   ========================================================= */
+
+getSensorData();
 
 setInterval(
-    readSensorData,
+    getSensorData,
     2000
 );
-
-
-/* ============================================================
-   START APPLICATION
-============================================================ */
-
-initializeDashboard();
-```
