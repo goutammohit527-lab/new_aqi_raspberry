@@ -1,269 +1,95 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Air Quality Monitoring Device</title>
+    <title>Air Quality Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="dashboard">
+    <div class="dashboard">
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
+        <!-- ================= HEADER ================= -->
+        <header class="top-header">
 
-    <header class="top-header">
-
-        <div class="connection">
-
-            <span class="connection-dot"></span>
-
-            <div>
-                <div class="connection-title">
-                    Disconnected
-                </div>
-
-                <div class="connection-subtitle">
-                    ZPHS01B Offline
+            <div class="brand">
+                <div class="brand-title">AIR QUALITY MONITOR</div>
+                <div class="brand-subtitle">
+                    Real-Time Environmental Monitoring
                 </div>
             </div>
 
-        </div>
+            <div class="header-right">
 
-
-        <div class="header-title">
-
-            <h1>
-                AIR QUALITY MONITORING DEVICE
-            </h1>
-
-            <p>
-                CLEANER AIR • HEALTHIER TOMORROW
-            </p>
-
-        </div>
-
-
-        <div class="clock-section">
-
-            <div id="date">
-                --
-            </div>
-
-            <div id="time">
-                --
-            </div>
-
-        </div>
-
-    </header>
-
-
-
-    <!-- =====================================================
-         MAIN CONTENT
-    ====================================================== -->
-
-    <main class="main-grid">
-
-
-        <!-- =================================================
-             AQI SECTION
-        ================================================== -->
-
-        <section class="aqi-card card">
-
-            <div class="aqi-title">
-                AIR QUALITY MONITOR
-            </div>
-
-            <div class="current-aqi-label">
-                CURRENT PM2.5 INDEX
-            </div>
-
-            <div
-                class="aqi-number"
-                id="aqiValue">
-
-                --
-
-            </div>
-
-            <div class="aqi-unit">
-                PM2.5 BASED LIVE INDEX
-            </div>
-
-
-            <!-- =================================================
-                 GRAPH
-            ================================================== -->
-
-            <div class="aqi-history">
-
-                <div class="history-header">
-
-                    <div class="history-title">
-                        AIR QUALITY TREND
-                    </div>
-
-                    <div class="history-period">
-                        LIVE
-                    </div>
-
+                <div class="connection-status">
+                    <span id="statusDot" class="status-dot"></span>
+                    <span id="statusText">Connecting...</span>
                 </div>
 
-
-                <div class="trend-chart">
-
-                    <div class="y-axis">
-                        <span>200</span>
-                        <span>150</span>
-                        <span>100</span>
-                        <span>50</span>
-                        <span>0</span>
-                    </div>
-
-
-                    <div class="chart-area">
-
-                        <div class="chart-line line-200"></div>
-                        <div class="chart-line line-150"></div>
-                        <div class="chart-line line-100"></div>
-                        <div class="chart-line line-50"></div>
-                        <div class="chart-line line-0"></div>
-
-
-                        <svg
-                            id="aqiGraph"
-                            viewBox="0 0 600 220"
-                            preserveAspectRatio="none">
-
-                            <defs>
-
-                                <linearGradient
-                                    id="aqiAreaGradient"
-                                    x1="0"
-                                    y1="0"
-                                    x2="0"
-                                    y2="1">
-
-                                    <stop
-                                        offset="0%"
-                                        stop-color="#31c8ff"
-                                        stop-opacity="0.40">
-                                    </stop>
-
-                                    <stop
-                                        offset="100%"
-                                        stop-color="#31c8ff"
-                                        stop-opacity="0">
-                                    </stop>
-
-                                </linearGradient>
-
-
-                                <linearGradient
-                                    id="aqiLineGradient"
-                                    x1="0"
-                                    y1="0"
-                                    x2="1"
-                                    y2="0">
-
-                                    <stop
-                                        offset="0%"
-                                        stop-color="#26f57a">
-                                    </stop>
-
-                                    <stop
-                                        offset="45%"
-                                        stop-color="#ffd21e">
-                                    </stop>
-
-                                    <stop
-                                        offset="75%"
-                                        stop-color="#ff9f1e">
-                                    </stop>
-
-                                    <stop
-                                        offset="100%"
-                                        stop-color="#ff5f4d">
-                                    </stop>
-
-                                </linearGradient>
-
-                            </defs>
-
-
-                            <path
-                                id="aqiGraphArea"
-                                class="graph-area-fill"
-                                d="">
-                            </path>
-
-
-                            <path
-                                id="aqiGraphLine"
-                                class="graph-line"
-                                d="">
-                            </path>
-
-
-                            <g id="aqiGraphDots"></g>
-
-
-                            <circle
-                                id="aqiGraphPointPulse"
-                                class="graph-point-pulse"
-                                cx="590"
-                                cy="100"
-                                r="7">
-                            </circle>
-
-
-                            <circle
-                                id="aqiGraphPoint"
-                                class="graph-current-point"
-                                cx="590"
-                                cy="100"
-                                r="7">
-                            </circle>
-
-                        </svg>
-
-
-                        <div
-                            id="currentGraphLabel"
-                            class="current-graph-label">
-
-                            AQI --
-
-                        </div>
-
-                    </div>
-
+                <div id="clock" class="clock">
+                    --:--:--
                 </div>
 
+            </div>
 
-                <div class="time-scale">
+        </header>
 
-                    <span>NOW - 6H</span>
-                    <span>NOW - 5H</span>
-                    <span>NOW - 4H</span>
-                    <span>NOW - 3H</span>
-                    <span>NOW - 2H</span>
-                    <span>NOW - 1H</span>
-                    <span>NOW</span>
 
+        <!-- ================= AQI SECTION ================= -->
+        <section class="aqi-section">
+
+            <div class="aqi-left">
+
+                <div class="section-label">
+                    CURRENT AIR QUALITY
+                </div>
+
+                <div id="aqiValue" class="aqi-value">
+                    --
+                </div>
+
+                <div class="aqi-label">
+                    PM2.5 BASED LIVE INDEX
+                </div>
+
+                <div id="aqiStatus" class="aqi-status">
+                    Waiting for sensor...
+                </div>
+
+            </div>
+
+
+            <div class="graph-container">
+
+                <div class="graph-title">
+                    AIR QUALITY TREND
+                </div>
+
+                <svg id="aqiGraph"
+                     viewBox="0 0 800 220"
+                     preserveAspectRatio="none">
+
+                    <polyline
+                        id="graphLine"
+                        points=""
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linejoin="round"
+                        stroke-linecap="round">
+                    </polyline>
+
+                </svg>
+
+                <div class="graph-labels">
+                    <span>Previous</span>
+                    <span>Current</span>
                 </div>
 
             </div>
@@ -271,270 +97,170 @@
         </section>
 
 
-
-        <!-- =================================================
-             SENSOR CARDS
-        ================================================== -->
-
+        <!-- ================= SENSOR GRID ================= -->
         <section class="sensor-grid">
 
 
             <!-- PM1.0 -->
-
-            <div class="sensor-card pm1">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     PM1.0
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="pm1_0">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    µg/m³
+                <div class="sensor-value-container">
+                    <span id="pm1_0" class="sensor-value">--</span>
+                    <span class="sensor-unit">µg/m³</span>
                 </div>
 
             </div>
 
 
             <!-- PM2.5 -->
-
-            <div class="sensor-card pm25">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     PM2.5
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="pm25">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    µg/m³
+                <div class="sensor-value-container">
+                    <span id="pm2_5" class="sensor-value">--</span>
+                    <span class="sensor-unit">µg/m³</span>
                 </div>
 
             </div>
 
 
             <!-- PM10 -->
-
-            <div class="sensor-card pm10">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     PM10
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="pm10">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    µg/m³
+                <div class="sensor-value-container">
+                    <span id="pm10" class="sensor-value">--</span>
+                    <span class="sensor-unit">µg/m³</span>
                 </div>
 
             </div>
 
 
             <!-- CO2 -->
-
-            <div class="sensor-card co2">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     CO₂
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="co2">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    ppm
+                <div class="sensor-value-container">
+                    <span id="co2" class="sensor-value">--</span>
+                    <span class="sensor-unit">ppm</span>
                 </div>
 
             </div>
 
 
             <!-- TVOC -->
-
-            <div class="sensor-card tvoc">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     TVOC
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="tvoc">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    mg/m³
+                <div class="sensor-value-container">
+                    <span id="tvoc" class="sensor-value">--</span>
+                    <span class="sensor-unit">ppb</span>
                 </div>
 
             </div>
 
 
             <!-- CO -->
-
-            <div class="sensor-card co">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     CO
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="co">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    ppm
+                <div class="sensor-value-container">
+                    <span id="co" class="sensor-value">--</span>
+                    <span class="sensor-unit">ppm</span>
                 </div>
 
             </div>
 
 
             <!-- CH2O -->
-
-            <div class="sensor-card ch2o">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     CH₂O
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="ch2o">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    mg/m³
+                <div class="sensor-value-container">
+                    <span id="ch2o" class="sensor-value">--</span>
+                    <span class="sensor-unit">mg/m³</span>
                 </div>
 
             </div>
 
 
             <!-- O3 -->
-
-            <div class="sensor-card o3">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     O₃
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="o3">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    ppm
+                <div class="sensor-value-container">
+                    <span id="o3" class="sensor-value">--</span>
+                    <span class="sensor-unit">ppm</span>
                 </div>
 
             </div>
 
 
             <!-- NO2 -->
-
-            <div class="sensor-card no2">
+            <div class="sensor-card">
 
                 <div class="sensor-name">
                     NO₂
                 </div>
 
-                <div
-                    class="sensor-value"
-                    id="no2">
-
-                    --
-
-                </div>
-
-                <div class="sensor-unit">
-                    ppm
+                <div class="sensor-value-container">
+                    <span id="no2" class="sensor-value">--</span>
+                    <span class="sensor-unit">ppm</span>
                 </div>
 
             </div>
 
 
-            <!-- TEMPERATURE -->
-
-            <div class="sensor-card temperature">
+            <!-- Temperature -->
+            <div class="sensor-card">
 
                 <div class="sensor-name">
-                    Temperature
+                    TEMPERATURE
                 </div>
 
-                <div class="sensor-value">
-
-                    <span id="temperature">
-                        --
-                    </span>
-
-                    <span class="value-suffix">
-                        °C
-                    </span>
-
-                </div>
-
-                <div class="sensor-unit">
-                    Ambient Temperature
+                <div class="sensor-value-container">
+                    <span id="temperature" class="sensor-value">--</span>
+                    <span class="sensor-unit">°C</span>
                 </div>
 
             </div>
 
 
-            <!-- HUMIDITY -->
-
-            <div class="sensor-card humidity">
+            <!-- Humidity -->
+            <div class="sensor-card">
 
                 <div class="sensor-name">
-                    Humidity
+                    HUMIDITY
                 </div>
 
-                <div class="sensor-value">
-
-                    <span id="humidity">
-                        --
-                    </span>
-
-                    <span class="value-suffix">
-                        %
-                    </span>
-
-                </div>
-
-                <div class="sensor-unit">
-                    Relative Humidity
+                <div class="sensor-value-container">
+                    <span id="humidity" class="sensor-value">--</span>
+                    <span class="sensor-unit">%RH</span>
                 </div>
 
             </div>
@@ -542,66 +268,991 @@
 
         </section>
 
-    </main>
 
-
-
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
-    <footer class="bottom-footer">
-
-        <div class="location">
-
-            <span class="footer-icon">
-                ●
-            </span>
+        <!-- ================= FOOTER ================= -->
+        <footer class="footer">
 
             <div>
-
-                <div class="footer-label">
-                    Sensor
-                </div>
-
-                <div class="footer-value">
-                    Winsen ZPHS01B
-                </div>
-
+                ZPHS01B AIR QUALITY SENSOR
             </div>
 
-        </div>
-
-
-        <div class="footer-message">
-            MONITOR
-            &nbsp; • &nbsp;
-            ANALYSE
-            &nbsp; • &nbsp;
-            BREATHE BETTER
-        </div>
-
-
-        <div class="last-updated">
-
-            <div class="footer-label">
-                Last Updated
+            <div>
+                LAST UPDATE:
+                <span id="lastUpdate">--</span>
             </div>
 
-            <div id="lastUpdated">
-                --
-            </div>
+        </footer>
 
-        </div>
-
-    </footer>
-
-</div>
+    </div>
 
 
-<script src="app.js"></script>
+    <script src="app.js"></script>
 
 </body>
-
 </html>
 ```
+
+### 2. `style.css`
+
+This is where the main change is: the value and unit are now **centered and larger**.
+
+```css
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #071018;
+    color: #ffffff;
+}
+
+body {
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD
+   ========================================================= */
+
+.dashboard {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 22px 28px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(0, 150, 255, 0.08),
+            transparent 35%
+        ),
+        #071018;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.top-header {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+
+.brand-title {
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.brand-subtitle {
+    margin-top: 5px;
+
+    font-size: 13px;
+    color: #81909d;
+    letter-spacing: 1px;
+}
+
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 14px;
+    color: #aab6c0;
+}
+
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #777;
+}
+
+
+.status-dot.connected {
+    background: #35d07f;
+    box-shadow: 0 0 12px rgba(53, 208, 127, 0.7);
+}
+
+
+.status-dot.disconnected {
+    background: #ff5252;
+    box-shadow: 0 0 12px rgba(255, 82, 82, 0.5);
+}
+
+
+.clock {
+    min-width: 90px;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    text-align: right;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   AQI SECTION
+   ========================================================= */
+
+.aqi-section {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 30% 70%;
+
+    min-height: 230px;
+
+    margin-top: 18px;
+    margin-bottom: 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    background: rgba(255, 255, 255, 0.025);
+}
+
+
+.aqi-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+
+    text-align: center;
+}
+
+
+.section-label {
+    font-size: 12px;
+    color: #7d8b96;
+
+    letter-spacing: 2px;
+}
+
+
+.aqi-value {
+    margin-top: 8px;
+
+    font-size: 72px;
+    line-height: 1;
+
+    font-weight: 700;
+
+    letter-spacing: -2px;
+}
+
+
+.aqi-label {
+    margin-top: 8px;
+
+    font-size: 11px;
+
+    color: #7d8b96;
+    letter-spacing: 1.5px;
+}
+
+
+.aqi-status {
+    margin-top: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #b9c5ce;
+}
+
+
+/* =========================================================
+   GRAPH
+   ========================================================= */
+
+.graph-container {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 22px 28px;
+}
+
+
+.graph-title {
+    position: absolute;
+
+    top: 18px;
+    left: 28px;
+
+    font-size: 12px;
+
+    color: #7d8b96;
+
+    letter-spacing: 1.5px;
+}
+
+
+#aqiGraph {
+    width: 100%;
+    height: 160px;
+
+    color: #4db6ff;
+
+    overflow: visible;
+}
+
+
+.graph-labels {
+    display: flex;
+    justify-content: space-between;
+
+    color: #596873;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   SENSOR GRID
+   ========================================================= */
+
+.sensor-grid {
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+
+    gap: 12px;
+
+    min-height: 0;
+}
+
+
+/* =========================================================
+   SENSOR CARD
+   ========================================================= */
+
+.sensor-card {
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(255, 255, 255, 0.035);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.sensor-card:hover {
+    background: rgba(255, 255, 255, 0.055);
+
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+
+/* =========================================================
+   SENSOR NAME
+   ========================================================= */
+
+.sensor-name {
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #85939e;
+
+    letter-spacing: 1.3px;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   VALUE + UNIT
+   ========================================================= */
+
+.sensor-value-container {
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    text-align: center;
+
+    line-height: 1;
+}
+
+
+/*
+   BIG SENSOR VALUE
+*/
+
+.sensor-value {
+
+    display: block;
+
+    font-size: 32px;
+
+    line-height: 1.05;
+
+    font-weight: 700;
+
+    color: #ffffff;
+
+    letter-spacing: -0.5px;
+
+    min-height: 34px;
+
+    text-align: center;
+}
+
+
+/*
+   BIGGER UNIT
+*/
+
+.sensor-unit {
+
+    display: block;
+
+    margin-top: 7px;
+
+    font-size: 14px;
+
+    line-height: 1;
+
+    font-weight: 500;
+
+    color: #8fa0ac;
+
+    letter-spacing: 0.8px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 12px;
+
+    color: #596873;
+
+    font-size: 10px;
+
+    letter-spacing: 0.8px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .dashboard {
+        padding: 16px;
+    }
+
+    .sensor-value {
+        font-size: 28px;
+    }
+
+    .sensor-unit {
+        font-size: 13px;
+    }
+
+    .aqi-value {
+        font-size: 60px;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .brand-title {
+        font-size: 18px;
+    }
+
+    .brand-subtitle {
+        font-size: 10px;
+    }
+
+    .header-right {
+        gap: 12px;
+    }
+
+    .aqi-section {
+        grid-template-columns: 35% 65%;
+    }
+
+    .sensor-grid {
+        gap: 8px;
+    }
+
+    .sensor-name {
+        font-size: 11px;
+    }
+
+    .sensor-value {
+        font-size: 24px;
+    }
+
+    .sensor-unit {
+        font-size: 11px;
+    }
+}
+```
+
+### 3. `app.js`
+
+The data handling remains real sensor data only.
+
+```javascript
+/* =========================================================
+   AIR QUALITY DASHBOARD
+   Real data from Raspberry Pi Python backend
+   ========================================================= */
+
+
+const API_URL = "/api/data";
+
+
+// =========================================================
+// GRAPH DATA
+// =========================================================
+
+let aqiHistory = [];
+
+const MAX_GRAPH_POINTS = 40;
+
+
+// =========================================================
+// ELEMENTS
+// =========================================================
+
+const statusDot = document.getElementById("statusDot");
+const statusText = document.getElementById("statusText");
+
+const clockElement = document.getElementById("clock");
+
+const aqiValue = document.getElementById("aqiValue");
+const aqiStatus = document.getElementById("aqiStatus");
+
+const graphLine = document.getElementById("graphLine");
+
+const lastUpdate = document.getElementById("lastUpdate");
+
+
+// =========================================================
+// CLOCK
+// =========================================================
+
+function updateClock() {
+
+    const now = new Date();
+
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    clockElement.textContent =
+        `${hours}:${minutes}:${seconds}`;
+}
+
+
+setInterval(updateClock, 1000);
+
+updateClock();
+
+
+// =========================================================
+// SAFE VALUE
+// =========================================================
+
+function displayValue(value, decimals = 0) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === "" ||
+        Number.isNaN(Number(value))
+    ) {
+        return "--";
+    }
+
+    return Number(value).toFixed(decimals);
+}
+
+
+// =========================================================
+// UPDATE SENSOR VALUE
+// =========================================================
+
+function setValue(id, value, decimals = 0) {
+
+    const element = document.getElementById(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent = displayValue(value, decimals);
+}
+
+
+// =========================================================
+// CONNECTION STATUS
+// =========================================================
+
+function setConnected() {
+
+    statusDot.classList.remove("disconnected");
+    statusDot.classList.add("connected");
+
+    statusText.textContent = "Connected";
+}
+
+
+function setDisconnected() {
+
+    statusDot.classList.remove("connected");
+    statusDot.classList.add("disconnected");
+
+    statusText.textContent = "Disconnected";
+}
+
+
+// =========================================================
+// AQI STATUS TEXT
+// =========================================================
+
+function getAQIStatus(aqi) {
+
+    if (
+        aqi === null ||
+        aqi === undefined ||
+        Number.isNaN(Number(aqi))
+    ) {
+        return "Waiting for sensor...";
+    }
+
+    const value = Number(aqi);
+
+    if (value <= 50) {
+        return "Good";
+    }
+
+    if (value <= 100) {
+        return "Satisfactory";
+    }
+
+    if (value <= 200) {
+        return "Moderate";
+    }
+
+    if (value <= 300) {
+        return "Poor";
+    }
+
+    if (value <= 400) {
+        return "Very Poor";
+    }
+
+    return "Severe";
+}
+
+
+// =========================================================
+// GRAPH
+// =========================================================
+
+function updateGraph(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        Number.isNaN(Number(value))
+    ) {
+        return;
+    }
+
+    aqiHistory.push(Number(value));
+
+    if (aqiHistory.length > MAX_GRAPH_POINTS) {
+        aqiHistory.shift();
+    }
+
+
+    if (aqiHistory.length < 2) {
+        return;
+    }
+
+
+    const width = 800;
+    const height = 220;
+
+    const padding = 10;
+
+    const minValue = Math.min(...aqiHistory);
+    const maxValue = Math.max(...aqiHistory);
+
+    let range = maxValue - minValue;
+
+    if (range === 0) {
+        range = 1;
+    }
+
+
+    const points = aqiHistory.map((item, index) => {
+
+        const x =
+            padding +
+            (
+                index /
+                (aqiHistory.length - 1)
+            ) *
+            (width - padding * 2);
+
+
+        const normalized =
+            (item - minValue) / range;
+
+
+        const y =
+            height -
+            padding -
+            normalized *
+            (height - padding * 2);
+
+
+        return `${x},${y}`;
+
+    });
+
+
+    graphLine.setAttribute(
+        "points",
+        points.join(" ")
+    );
+}
+
+
+// =========================================================
+// LAST UPDATE
+// =========================================================
+
+function updateLastUpdate() {
+
+    const now = new Date();
+
+    const hours =
+        String(now.getHours()).padStart(2, "0");
+
+    const minutes =
+        String(now.getMinutes()).padStart(2, "0");
+
+    const seconds =
+        String(now.getSeconds()).padStart(2, "0");
+
+
+    lastUpdate.textContent =
+        `${hours}:${minutes}:${seconds}`;
+}
+
+
+// =========================================================
+// UPDATE DASHBOARD
+// =========================================================
+
+function updateDashboard(data) {
+
+    if (!data) {
+        return;
+    }
+
+
+    // -----------------------------
+    // AQI
+    // -----------------------------
+
+    if (
+        data.aqi !== null &&
+        data.aqi !== undefined
+    ) {
+
+        aqiValue.textContent =
+            displayValue(data.aqi, 0);
+
+        aqiStatus.textContent =
+            getAQIStatus(data.aqi);
+
+        updateGraph(data.aqi);
+
+    } else {
+
+        aqiValue.textContent = "--";
+
+        aqiStatus.textContent =
+            "Waiting for sensor...";
+    }
+
+
+    // -----------------------------
+    // PM VALUES
+    // -----------------------------
+
+    setValue(
+        "pm1_0",
+        data.pm1_0,
+        1
+    );
+
+    setValue(
+        "pm2_5",
+        data.pm2_5,
+        1
+    );
+
+    setValue(
+        "pm10",
+        data.pm10,
+        1
+    );
+
+
+    // -----------------------------
+    // GAS VALUES
+    // -----------------------------
+
+    setValue(
+        "co2",
+        data.co2,
+        0
+    );
+
+    setValue(
+        "tvoc",
+        data.tvoc,
+        0
+    );
+
+    setValue(
+        "co",
+        data.co,
+        2
+    );
+
+    setValue(
+        "ch2o",
+        data.ch2o,
+        3
+    );
+
+    setValue(
+        "o3",
+        data.o3,
+        3
+    );
+
+    setValue(
+        "no2",
+        data.no2,
+        3
+    );
+
+
+    // -----------------------------
+    // TEMPERATURE
+    // -----------------------------
+
+    setValue(
+        "temperature",
+        data.temperature,
+        1
+    );
+
+
+    // -----------------------------
+    // HUMIDITY
+    // -----------------------------
+
+    setValue(
+        "humidity",
+        data.humidity,
+        1
+    );
+
+
+    // -----------------------------
+    // STATUS
+    // -----------------------------
+
+    setConnected();
+
+    updateLastUpdate();
+}
+
+
+// =========================================================
+// FETCH SENSOR DATA
+// =========================================================
+
+async function fetchSensorData() {
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        updateDashboard(data);
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Sensor connection error:",
+            error
+        );
+
+        setDisconnected();
+
+        /*
+         * Do not generate fake values.
+         * Keep the previous graph/data state.
+         */
+
+        aqiValue.textContent = "--";
+
+        aqiStatus.textContent =
+            "Sensor unavailable";
+
+
+        setValue("pm1_0", null);
+        setValue("pm2_5", null);
+        setValue("pm10", null);
+
+        setValue("co2", null);
+        setValue("tvoc", null);
+        setValue("co", null);
+        setValue("ch2o", null);
+        setValue("o3", null);
+        setValue("no2", null);
+
+        setValue("temperature", null);
+        setValue("humidity", null);
+    }
+}
+
+
+// =========================================================
+// START
+// =========================================================
+
+fetchSensorData();
+
+
+// Read new sensor data every 2 seconds
+
+setInterval(
+    fetchSensorData,
+    2000
+);
+```
+
+**The main visual change is in `style.css`:** each sensor card now has the sensor name at the top and the **actual reading + unit centered in the middle**, with the reading at `32px` and the unit at `14px`.
+
+After replacing the files, restart the display:
+
+```bash
+sudo systemctl restart aqi-display.service
+```
+
+If the browser is already open in kiosk mode, the updated page should appear after Chromium reloads.
