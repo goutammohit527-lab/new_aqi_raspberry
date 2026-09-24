@@ -1,30 +1,22 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>
-        Air Quality Monitoring Device
-    </title>
+    <title>Air Quality Monitoring Device</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
 <div class="dashboard">
-
 
     <!-- =====================================================
          HEADER
@@ -32,13 +24,11 @@
 
     <header class="top-header">
 
-
         <div class="connection">
 
             <span class="connection-dot"></span>
 
             <div>
-
                 <div class="connection-title">
                     Disconnected
                 </div>
@@ -46,7 +36,6 @@
                 <div class="connection-subtitle">
                     ZPHS01B Offline
                 </div>
-
             </div>
 
         </div>
@@ -77,34 +66,30 @@
 
         </div>
 
-
     </header>
 
 
 
     <!-- =====================================================
-         MAIN
+         MAIN CONTENT
     ====================================================== -->
 
     <main class="main-grid">
 
 
         <!-- =================================================
-             AQI PANEL
+             AQI SECTION
         ================================================== -->
 
         <section class="aqi-card card">
-
 
             <div class="aqi-title">
                 AIR QUALITY MONITOR
             </div>
 
-
             <div class="current-aqi-label">
-                CURRENT AQI
+                CURRENT PM2.5 INDEX
             </div>
-
 
             <div
                 class="aqi-number"
@@ -114,9 +99,16 @@
 
             </div>
 
+            <div class="aqi-unit">
+                PM2.5 BASED LIVE INDEX
+            </div>
+
+
+            <!-- =================================================
+                 GRAPH
+            ================================================== -->
 
             <div class="aqi-history">
-
 
                 <div class="history-header">
 
@@ -125,7 +117,7 @@
                     </div>
 
                     <div class="history-period">
-                        LIVE PM2.5 INDEX
+                        LIVE
                     </div>
 
                 </div>
@@ -133,29 +125,21 @@
 
                 <div class="trend-chart">
 
-
                     <div class="y-axis">
-
                         <span>200</span>
                         <span>150</span>
                         <span>100</span>
                         <span>50</span>
                         <span>0</span>
-
                     </div>
 
 
                     <div class="chart-area">
 
-
                         <div class="chart-line line-200"></div>
-
                         <div class="chart-line line-150"></div>
-
                         <div class="chart-line line-100"></div>
-
                         <div class="chart-line line-50"></div>
-
                         <div class="chart-line line-0"></div>
 
 
@@ -163,7 +147,6 @@
                             id="aqiGraph"
                             viewBox="0 0 600 220"
                             preserveAspectRatio="none">
-
 
                             <defs>
 
@@ -175,10 +158,9 @@
                                     y2="1">
 
                                     <stop
-                                        id="aqiAreaStopTop"
                                         offset="0%"
                                         stop-color="#31c8ff"
-                                        stop-opacity="0.45">
+                                        stop-opacity="0.40">
                                     </stop>
 
                                     <stop
@@ -236,9 +218,7 @@
                             </path>
 
 
-                            <g
-                                id="aqiGraphDots">
-                            </g>
+                            <g id="aqiGraphDots"></g>
 
 
                             <circle
@@ -258,7 +238,6 @@
                                 r="7">
                             </circle>
 
-
                         </svg>
 
 
@@ -270,7 +249,6 @@
 
                         </div>
 
-
                     </div>
 
                 </div>
@@ -279,31 +257,23 @@
                 <div class="time-scale">
 
                     <span>NOW - 6H</span>
-
                     <span>NOW - 5H</span>
-
                     <span>NOW - 4H</span>
-
                     <span>NOW - 3H</span>
-
                     <span>NOW - 2H</span>
-
                     <span>NOW - 1H</span>
-
                     <span>NOW</span>
 
                 </div>
 
-
             </div>
-
 
         </section>
 
 
 
         <!-- =================================================
-             SENSOR GRID
+             SENSOR CARDS
         ================================================== -->
 
         <section class="sensor-grid">
@@ -311,10 +281,10 @@
 
             <!-- PM1.0 -->
 
-            <div class="sensor-card pm15">
+            <div class="sensor-card pm1">
 
                 <div class="sensor-name">
-                    Particulate Matter 1.0
+                    PM1.0
                 </div>
 
                 <div
@@ -337,7 +307,7 @@
             <div class="sensor-card pm25">
 
                 <div class="sensor-name">
-                    Particulate Matter 2.5
+                    PM2.5
                 </div>
 
                 <div
@@ -360,7 +330,7 @@
             <div class="sensor-card pm10">
 
                 <div class="sensor-name">
-                    Particulate Matter 10
+                    PM10
                 </div>
 
                 <div
@@ -383,7 +353,7 @@
             <div class="sensor-card co2">
 
                 <div class="sensor-name">
-                    Carbon Dioxide
+                    CO₂
                 </div>
 
                 <div
@@ -403,7 +373,7 @@
 
             <!-- TVOC -->
 
-            <div class="sensor-card co">
+            <div class="sensor-card tvoc">
 
                 <div class="sensor-name">
                     TVOC
@@ -418,7 +388,7 @@
                 </div>
 
                 <div class="sensor-unit">
-                    Grade
+                    mg/m³
                 </div>
 
             </div>
@@ -426,10 +396,10 @@
 
             <!-- CO -->
 
-            <div class="sensor-card no2">
+            <div class="sensor-card co">
 
                 <div class="sensor-name">
-                    Carbon Monoxide
+                    CO
                 </div>
 
                 <div
@@ -449,10 +419,10 @@
 
             <!-- CH2O -->
 
-            <div class="sensor-card so2">
+            <div class="sensor-card ch2o">
 
                 <div class="sensor-name">
-                    Formaldehyde CH₂O
+                    CH₂O
                 </div>
 
                 <div
@@ -472,10 +442,10 @@
 
             <!-- O3 -->
 
-            <div class="sensor-card temperature">
+            <div class="sensor-card o3">
 
                 <div class="sensor-name">
-                    Ozone O₃
+                    O₃
                 </div>
 
                 <div
@@ -495,10 +465,10 @@
 
             <!-- NO2 -->
 
-            <div class="sensor-card humidity">
+            <div class="sensor-card no2">
 
                 <div class="sensor-name">
-                    Nitrogen Dioxide NO₂
+                    NO₂
                 </div>
 
                 <div
@@ -572,7 +542,6 @@
 
         </section>
 
-
     </main>
 
 
@@ -582,7 +551,6 @@
     ====================================================== -->
 
     <footer class="bottom-footer">
-
 
         <div class="location">
 
@@ -606,13 +574,11 @@
 
 
         <div class="footer-message">
-
             MONITOR
             &nbsp; • &nbsp;
             ANALYSE
             &nbsp; • &nbsp;
             BREATHE BETTER
-
         </div>
 
 
@@ -628,9 +594,7 @@
 
         </div>
 
-
     </footer>
-
 
 </div>
 
@@ -640,3 +604,4 @@
 </body>
 
 </html>
+```
